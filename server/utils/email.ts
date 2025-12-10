@@ -1,5 +1,6 @@
-import nodemailer from "nodemailer";
 import dotenv from "dotenv";
+import nodemailer from "nodemailer";
+
 dotenv.config();
 
 const transporter = nodemailer.createTransport({
@@ -8,7 +9,7 @@ const transporter = nodemailer.createTransport({
   secure: true,
   auth: {
     user: process.env.EMAIL_USER,
-    pass: process.env.EMAIL_KEY,
+    pass: process.env.GMAIL_APP_KEY,
   },
 });
 
