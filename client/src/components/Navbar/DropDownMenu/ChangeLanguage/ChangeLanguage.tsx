@@ -1,5 +1,3 @@
-import updateUserLanguage from "@/api/users/updateUserLanguage";
-import { Button } from "@/components/ui/button";
 import {
   Dialog,
   DialogContent,
@@ -8,15 +6,18 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { RootState } from "@/redux/store";
-import { setLanguage } from "@/redux/slices/userSlice";
-import { btnLanguages } from "@/utils/languages";
-import { useMutation } from "@tanstack/react-query";
-import { useState } from "react";
-import { TbWorld } from "react-icons/tb";
-import { useDispatch } from "react-redux";
-import { useSelector } from "react-redux";
+
+import { Button } from "@/components/ui/button";
 import { DialogOverlay } from "@radix-ui/react-dialog";
+import { RootState } from "@/redux/store";
+import { TbWorld } from "react-icons/tb";
+import { btnLanguages } from "@/utils/languages";
+import { setLanguage } from "@/redux/slices/userSlice";
+import updateUserLanguage from "@/api/users/updateUserLanguage";
+import { useDispatch } from "react-redux";
+import { useMutation } from "@tanstack/react-query";
+import { useSelector } from "react-redux";
+import { useState } from "react";
 
 const ChangeLanguage: React.FC<{
   isClicked?: boolean;
@@ -42,20 +43,22 @@ const ChangeLanguage: React.FC<{
   return (
     <Dialog>
       <DialogOverlay style={{ backgroundColor: "#1d1e27cc" }} />
-      <DialogTrigger open={isClicked} onOpenChange={setClicked} className="focus:outline-none">
+      <DialogTrigger>
         {showIcon && (
           <div>
             <p>Language</p>
           </div>
         )}
-        <div
-          className={`${
-            !showIcon ? "justify-center border border-purple-800 p-[10px]" : ""
-          } flex items-center rounded-[0.2em] hover:bg-purpleHoverBtn focus:outline-none`}
-        >
-          {!showIcon && <TbWorld size={size} className="focus:outline-none" />}
-          {!showIcon && <p className="hidden">{chosenLanguage}</p>}
-        </div>
+        {!showIcon && (
+          <div
+            className={`${
+              !showIcon ? "justify-center border border-purple-800 p-[10px]" : ""
+            } flex items-center rounded-[0.2em] hover:bg-purpleHoverBtn focus:outline-none`}
+          >
+            {!showIcon && <TbWorld size={size} className="focus:outline-none" />}
+            {!showIcon && <p className="hidden">{chosenLanguage}</p>}
+          </div>
+        )}
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>

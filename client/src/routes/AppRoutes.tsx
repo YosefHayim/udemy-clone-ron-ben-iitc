@@ -1,43 +1,44 @@
-import { Routes, Route, useLocation } from "react-router-dom";
-import NotFound from "../pages/404/NotFound";
-import LessonPage from "../pages/Lesson/LessonPage";
-import SearchPage from "@/pages/Search/SearchPage";
-import Homepage from "@/pages/Home/Homepage";
-import Navbar from "@/components/Navbar/Navbar";
-import Footer from "../pages/Home/Footer/Footer";
-import ViewCoursePageInfo from "@/pages/ViewCoursePageInfo/ViewCoursePageInfo";
-import Loader from "@/components/Loader/Loader";
-import ShoppingCart from "@/pages/ShoppingCart/ShoppingCart";
-import SignUp from "@/pages/SignUp/Signup";
-import Login from "@/pages/Login/Login";
-import Wishlist from "@/pages/Wishlist/Wishlist";
-import Logout from "@/pages/Logout/Logout";
-import Payment from "@/pages/Payment/Payment";
-import UdemyCredits from "@/components/Navbar/DropDownMenu/UdemyCredits/UdemyCredits";
-import PurchaseHistory from "@/components/Navbar/DropDownMenu/PurchaseHistory/PurchaseHistory";
-import Subscription from "@/components/Navbar/DropDownMenu/Subscription/Subscription";
-import PublicProfile from "@/components/Navbar/DropDownMenu/PublicProfile/PublicProfile";
-import PaymentMethods from "@/components/Navbar/DropDownMenu/PaymentMethods/PaymentMethods";
-import UdemyBusinessContact from "@/components/Navbar/DropDownMenu/UdemyBusinessContact/UdemyBusinessContact";
+import { Route, Routes } from "react-router-dom";
+
 import AccountSecurity from "@/pages/ProfilePage/SwitchPagesProfile/AccountSecurity";
 import ApiClients from "@/pages/ProfilePage/SwitchPagesProfile/ApiClients";
-import Photo from "@/pages/ProfilePage/SwitchPagesProfile/Photo";
-import NotificationPreferences from "@/pages/ProfilePage/SwitchPagesProfile/NotificationPreferences";
-import Privacy from "@/pages/ProfilePage/SwitchPagesProfile/Privacy";
 import CloseAccount from "@/pages/ProfilePage/SwitchPagesProfile/CloseAccount";
 import EnrollFreeCourse from "@/pages/EnrollFreeCourse/EnrollFreeCourse";
-import VerifyCode from "../pages/VerifyCode/VerifyCode";
+import Footer from "../pages/Home/Footer/Footer";
+import Homepage from "@/pages/Home/Homepage";
 import InstructorProfile from "@/pages/InstructorProfile/InstructorProfile";
-import PersonalizeField from "@/pages/PersonalizeField/PersonalizeField";
-import Terms from "../pages/Terms/Terms";
-import SearchNotFound from "@/pages/Search/SearchNotFound/SearchNotFound";
-import ReceiptCart from "@/components/Navbar/DropDownMenu/PurchaseHistory/ReceiptCart/ReceiptCart";
-import Promotions from "../pages/Terms/TermsPages/Promotions";
+import LessonPage from "../pages/Lesson/LessonPage";
+import Loader from "@/components/Loader/Loader";
+import Login from "@/pages/Login/Login";
+import Logout from "@/pages/Logout/Logout";
 import Messages from "@/pages/Messages/Messages";
+import Navbar from "@/components/Navbar/Navbar";
+import NotFound from "../pages/404/NotFound";
+import NotificationPreferences from "@/pages/ProfilePage/SwitchPagesProfile/NotificationPreferences";
 import OrganizationLogin from "@/pages/OrganizationLogin/OrganizationLogin";
-import SignUpOrganization from "@/pages/SignUpOrganization/SignUpOrganization";
-import ProfilePage from "@/pages/ProfilePage/ProfilePage";
+import Payment from "@/pages/Payment/Payment";
+import PaymentMethods from "@/components/Navbar/DropDownMenu/PaymentMethods/PaymentMethods";
 import PersonalPlan from "@/pages/PersonalPlan/PersonalPlan";
+import PersonalizeField from "@/pages/PersonalizeField/PersonalizeField";
+import Photo from "@/pages/ProfilePage/SwitchPagesProfile/Photo";
+import Privacy from "@/pages/ProfilePage/SwitchPagesProfile/Privacy";
+import ProfilePage from "@/pages/ProfilePage/ProfilePage";
+import Promotions from "../pages/Terms/TermsPages/Promotions";
+import PublicProfile from "@/components/Navbar/DropDownMenu/PublicProfile/PublicProfile";
+import PurchaseHistory from "@/components/Navbar/DropDownMenu/PurchaseHistory/PurchaseHistory";
+import ReceiptCart from "@/components/Navbar/DropDownMenu/PurchaseHistory/ReceiptCart/ReceiptCart";
+import SearchNotFound from "@/pages/Search/SearchNotFound/SearchNotFound";
+import SearchPage from "@/pages/Search/SearchPage";
+import ShoppingCart from "@/pages/ShoppingCart/ShoppingCart";
+import SignUp from "@/pages/SignUp/Signup";
+import SignUpOrganization from "@/pages/SignUpOrganization/SignUpOrganization";
+import Subscription from "@/components/Navbar/DropDownMenu/Subscription/Subscription";
+import Terms from "../pages/Terms/Terms";
+import UdemyBusinessContact from "@/components/Navbar/DropDownMenu/UdemyBusinessContact/UdemyBusinessContact";
+import UdemyCredits from "@/components/Navbar/DropDownMenu/UdemyCredits/UdemyCredits";
+import VerifyCode from "../pages/VerifyCode/VerifyCode";
+import ViewCoursePageInfo from "@/pages/ViewCoursePageInfo/ViewCoursePageInfo";
+import Wishlist from "@/pages/Wishlist/Wishlist";
 
 const LayoutWithNavbarAndFooter = () => {
   return (
@@ -70,7 +71,7 @@ const LayoutWithNavbarAndFooter = () => {
         <Route path="/verify-code" element={<VerifyCode />} />
         <Route path="/courses/search" element={<SearchPage />} />
         <Route path="/not/search/not/found/:searchTerm" element={<SearchNotFound />} />
-        <Route path="/course-view/:courseId" element={<ViewCoursePageInfo />} />
+        {/* <Route path="/course-view/:courseId" element={<ViewCoursePageInfo />} /> */}
         <Route path="/terms-of-use" element={<Terms />} />
         <Route path="/personal-plan/local=en_US" element={<PersonalPlan />} />
         <Route path="*" element={<NotFound />} />

@@ -1,21 +1,20 @@
+import { FaApple, FaFacebook } from "react-icons/fa";
 import { baseUrl, isProduction, localhostUrl } from "@/api/configuration";
+import { iconSize, loginThirdPartyBtn } from "@/utils/stylesStorage";
+
+import { FcGoogle } from "react-icons/fc";
 import googleLogin from "@/api/users/googleLogin";
 import { setUserInformation } from "@/utils/setUserInformation";
-import { iconSize, loginThirdPartyBtn } from "@/utils/stylesStorage";
+import { useDispatch } from "react-redux";
 import { useGoogleLogin } from "@react-oauth/google";
 import { useMutation } from "@tanstack/react-query";
-import Cookies from "js-cookie";
-import { useState } from "react";
-import { FaApple, FaFacebook } from "react-icons/fa";
-import { FcGoogle } from "react-icons/fc";
-import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 
 const OtherLoginOptions = () => {
-  const [isError, setShowIsError] = useState(false);
+  const [_, setShowIsError] = useState(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const cookie = Cookies.get("cookie");
 
   const googleMutationLogin = useMutation({
     mutationFn: googleLogin,
@@ -26,7 +25,7 @@ const OtherLoginOptions = () => {
       }, 1000);
     },
     onError: (error) => {
-      console.log("Error during google login process:", error.response.data);
+      console.log("Error during google login process:", error);
       setShowIsError(true);
     },
   });
@@ -36,7 +35,7 @@ const OtherLoginOptions = () => {
       googleMutationLogin.mutate(credentialResponse.code);
     },
     onError: (error) => {
-      console.log(`Error occurred durning login via google: `, error.response.data);
+      console.log("Error during google login process:", error);
     },
     onNonOAuthError: (nonAuthError) => {
       console.log(nonAuthError);
