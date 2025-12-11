@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "start": "cross-env NODE_ENV=production node app.ts",
-    "start:dev": "nodemon --exec \"tsx\" app.ts",
+    "dev": "nodemon --exec \"tsx\" app.ts",
     "prod": "cross-env NODE_ENV=production npx tsx app.ts",
     "seed": "tsx seedDb.ts",
     "delete": "node deleteDb.ts",

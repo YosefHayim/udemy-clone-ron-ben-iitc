@@ -1,10 +1,11 @@
-import { configureStore } from "@reduxjs/toolkit";
-import { persistStore, persistReducer } from "redux-persist";
-import storage from "redux-persist/lib/storage";
-import { combineReducers } from "redux";
-import userSlice from "./slices/userSlice";
-import courseSlice from "./slices/courseSlice";
+import { persistReducer, persistStore } from "redux-persist";
+
 import cartSlice from "./slices/cartSlice";
+import { combineReducers } from "@reduxjs/toolkit";
+import { configureStore } from "@reduxjs/toolkit";
+import courseSlice from "./slices/courseSlice";
+import storage from "redux-persist/lib/storage";
+import userSlice from "./slices/userSlice";
 
 // Combine reducers
 const rootReducer = combineReducers({

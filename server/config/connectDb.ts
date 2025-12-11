@@ -1,5 +1,6 @@
-import mongoose from "mongoose";
 import dotenv from "dotenv";
+import mongoose from "mongoose";
+
 dotenv.config();
 
 const connectDb = async () => {
@@ -7,7 +8,7 @@ const connectDb = async () => {
     const connection = await mongoose.connect(process.env.DB_URI || "");
 
     if (connection) {
-      // console.log(`Connected successfully to database`);
+      console.log(`Connected successfully to database ${connection.connection.host}`);
     }
   } catch (error) {
     console.log(`Error occurred durning login to database: `, error);
