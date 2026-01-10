@@ -1,65 +1,68 @@
-## Bugs to fix:
+# Udemy Clone - Frontend
 
-### General Logic Fixes
+React-based frontend for the Udemy Clone e-learning platform.
 
-- **Verify Code**: If an error is shown during verification, stop the loading button.✅
-- **Join by Course ID (API)**: On the server side, wait until all course IDs are checked before proceeding for a specific user.✅
-- **Go to Course**: Ensure course is initialized before reaching the payment stage.✅
-- **If Navigated Course View Is Undefined**: Handle gracefully with a return fallback.✅
+## Quick Start
 
----
+```bash
+# Install dependencies
+npm install
 
-### Homepage
+# Start development server
+npm run dev
+```
 
-- **After Login**: Fix the "What to learn next" carousel display.
-- **Homepage Carousel**: Reduce auto-scroll interval to **3 seconds**.✅
-- **"Learners Are Viewing" Carousel**: Fix button interaction.
+The app will be available at `http://localhost:5173`.
 
----
+## Tech Stack
 
-### Navbar
+- **React 18** with TypeScript
+- **Vite** for build tooling
+- **TailwindCSS** + **MUI** + **Radix UI** for styling
+- **Redux Toolkit** + **TanStack Query** for state management
+- **React Router v7** for navigation
+- **Video.js** for video playback
+- **PayPal SDK** for payments
 
-- **"Udemy Business" Button**: Link it to the correct Udemy Business page.✅
-- **"My Learning" Button**: Redirect to **Wishlist** (if that's intended).✅
-- **Cart Hover**: Fix design.✅
-- **Search Input Bug**: After direct search > course click > search again = input should reset. ✅
-- **Search Dropdown**: Ensure clicking a dropdown suggestion triggers a proper search. ✅
-- **Fix Button Hover**: Make navbar buttons (e.g., notifications) respect absolute positioning.
+## Project Structure
 
----
+```
+src/
+├── api/           # API client functions
+├── components/    # Reusable UI components
+├── contexts/      # React contexts
+├── hooks/         # Custom hooks
+├── pages/         # Page components
+├── redux/         # Redux store & slices
+├── routes/        # Route definitions
+├── services/      # Business logic services
+├── types/         # TypeScript types
+└── utils/         # Utility functions
+```
 
-### Search Page
+## Scripts
 
-- **Pagination**: After clicking a page number, scroll to top.✅
-- **Hot & Fresh Carousel**: Fix loading issue when clicking the right arrow. ✅
-- **Navigation Handling**: If navigating away from search, reset `filterData`.
-- **Total Pages**: Update when filters are applied.
-- **Language Filter**: Add filter functionality.
+| Script | Description |
+|--------|-------------|
+| `npm run dev` | Start development server |
+| `npm run build` | Build for production |
+| `npm run preview` | Preview production build |
+| `npm run lint` | Run ESLint |
+| `npm run format` | Format code with Prettier |
 
----
+## Environment Variables
 
-### Course View Page
+Create a `.env` file in the client root:
 
-- **Button Spacing**: Add space between the 3 main action buttons.✅
+```env
+VITE_CLIENT_ID=your_client_id
+VITE_PAYPAL_CLIENT_ID=your_paypal_client_id
+VITE_SECRET_KEY_PAYPAL=your_paypal_secret
+VITE_NODE_ENV=development
+VITE_BASE_URL=http://localhost:3000
+VITE_LOCALHOST=http://localhost:3000
+VITE_GOOGLE_CLIENT_ID=your_google_client_id
+VITE_AI_TOKEN=your_ai_token
+```
 
----
-
-### Shopping Cart
-
-- **Save for Later**: Implement logic and integrate with **Wishlist**.
-
----
-
-### My Learning Page
-
-- **Design Overhaul**: Fix layout and implement full logic.
-
----
-
-### Public Profile Page
-
-- **Navigation**: Ensure user is routed based on `userId`.
-
----
-
-Let me know if you want this broken into Jira-style tickets or Trello card templates.
+See the [main README](../README.md) for full project documentation.
