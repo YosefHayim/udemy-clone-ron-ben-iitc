@@ -20,7 +20,6 @@ const CourseContent = ({
     );
   }
 
-  console.log(sectionsOfCourse);
 
   return (
     <div className="curriculum flex flex-col">

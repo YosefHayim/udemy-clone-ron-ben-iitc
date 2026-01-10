@@ -27,7 +27,6 @@ const CourseCardInstructorRelated: React.FC<{
   useEffect(() => {}, []);
 
   if (error) {
-    console.log("Error durning rendering of instructor courses: ", error);
   }
 
   if (!data) {

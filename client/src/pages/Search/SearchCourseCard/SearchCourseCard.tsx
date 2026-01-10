@@ -12,7 +12,6 @@ const SearchCourseCard = ({ course }) => {
   const navigate = useNavigate();
 
   if (!course) {
-    console.log("Course is undefined", course);
     return;
   }
 

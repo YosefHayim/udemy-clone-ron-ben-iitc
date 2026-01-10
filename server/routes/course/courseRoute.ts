@@ -20,7 +20,6 @@ import { grantedAccess } from "../../controllers/authorization/authController.ts
 const router = express.Router();
 
 router.param("id", (req: Request, res: Response, next: NextFunction, val) => {
-  console.log(`ID is: ${val}`);
   next();
 });
 

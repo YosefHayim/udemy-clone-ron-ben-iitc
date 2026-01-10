@@ -27,7 +27,6 @@ const SignUpForm = ({ isMobile }) => {
     },
     onError: (error) => {
       const message = getErrorMessage(error);
-      console.log(`Error occurred during sign up: `, message);
       setErrorMessage(message);
       setShowIsError(true);
     },

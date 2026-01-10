@@ -52,14 +52,12 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
     const fetchData = async () => {
       try {
         if (!courseId) {
-          console.log("Missing courseId in the route.");
           return;
         }
 
         const data = await fetchCourseById(courseId);
         setCourseData(data);
       } catch (error) {
-        console.log("Failed to fetch course data.", error);
       }
     };
     fetchData();

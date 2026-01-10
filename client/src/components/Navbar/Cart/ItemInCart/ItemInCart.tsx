@@ -62,7 +62,6 @@ const ItemInCart = ({
   });
 
   if (!courseId) {
-    console.log("There is no course Id provided");
     return;
   }
 
@@ -86,7 +85,6 @@ const ItemInCart = ({
       dispatch(setCoursesAddedToWishList(courseId));
       handleRemove();
       setDisplay(false);
-      console.log("Move to Wishlist clicked");
     } else if (btnType && target.textContent === "Go to Cart") {
       navigate("/cart");
     } else if (btnType && target.textContent === "Add to Cart") {

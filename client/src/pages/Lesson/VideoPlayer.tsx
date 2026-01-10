@@ -55,7 +55,6 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({
 
   // Seek to the last watched time when the video URL changes or lastWatched updates
   useEffect(() => {
-    console.log("currentlesson lastwatched", currentLesson.lastWatched);
 
     if (playerRef.current && currentLesson?.lastWatched > 0) {
       playerRef.current.seekTo(currentLesson.lastWatched, "seconds");
@@ -74,7 +73,6 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({
     }) => updateLessonProgress(courseId, lessonId, payload),
     onSuccess: () => {
       queryClient.invalidateQueries(["courseProgress", courseId]);
-      console.log("Lesson progress updated successfully.");
     },
   });
 
@@ -84,7 +82,6 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({
     setLastWatched(currentSeconds);
     setCurrentSec(currentSeconds);
 
-    console.log("last watched", lastWatched);
 
     if (!updateTimer) {
       const timer = setTimeout(() => {

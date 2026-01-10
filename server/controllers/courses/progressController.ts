@@ -15,8 +15,6 @@ const initializeProgress = async (req: Request, res: Response) => {
     const courseId = req.params.id; // courseId comes as a string from URL params
     const userId = req.user?._id; // userId should already be an ObjectId
 
-    console.log("Received courseId:", courseId, "Type:", typeof courseId);
-    console.log("Received userId:", userId, "Type:", typeof userId);
 
     // Validate that courseId and userId are valid ObjectId
     if (
@@ -30,13 +28,11 @@ const initializeProgress = async (req: Request, res: Response) => {
     const courseObjectId = new mongoose.Types.ObjectId(courseId); // Ensure ObjectId type
     const userObjectId = userId; // userId is already an ObjectId
 
-    console.log(
       "Converted courseId:",
       courseObjectId,
       "Type:",
       typeof courseObjectId
     );
-    console.log(
       "Converted userId:",
       userObjectId,
       "Type:",
@@ -88,7 +84,6 @@ const initializeProgress = async (req: Request, res: Response) => {
     await progress.save();
     res.status(201).json(progress);
   } catch (err) {
-    console.log("Error initializing progress:", err);
     res
       .status(500)
       .json({ error: "Failed to initialize progress", details: err });
@@ -101,7 +96,6 @@ const updateLessonProgress = async (req: Request, res: Response) => {
   const { courseId, lessonId } = req.params;
   const userId = req.user._id;
   const { completed, lastWatched } = req.body;
-  console.log("Updating progress for:", {
     userId,
     courseId,
     lessonId,
@@ -116,19 +110,15 @@ const updateLessonProgress = async (req: Request, res: Response) => {
     });
 
     if (!progress) {
-      console.log("Progress not found in DB!");
       return res.status(404).json({ message: "Progress not found" });
     }
-    console.log("found");
 
     let lessonUpdated = false;
 
     // Update the progress for the specific lesson
     for (const section of progress.sections) {
       for (const lesson of section.lessons) {
-        console.log("Checking lesson:", lessonId);
         if (lesson.lessonId.toString() === lessonId.toString()) {
-          console.log("Lesson match found! Updating...");
           if (completed !== undefined) lesson.completed = completed;
           if (lastWatched !== undefined) lesson.lastWatched = lastWatched;
           lessonUpdated = true;
@@ -159,13 +149,11 @@ const getCourseProgress = async (req: Request, res: Response) => {
   const { courseId } = req.params;
   const userId = req.user._id;
 
-  console.log(
     `Getting course progress for userId: ${userId}, courseId: ${courseId}`
   );
 
   try {
     // Find progress for the user and course
-    console.log(
       "Querying CourseProgress with .lean() and populating related data"
     );
     const progress = await CourseProgress.findOne({ userId, courseId })
@@ -180,34 +168,28 @@ const getCourseProgress = async (req: Request, res: Response) => {
           "title videoUrl duration order resources createdAt updatedAt completed", // Select required fields
       });
 
-    console.log(
       "Query completed - result:",
       progress ? "Data found" : "No data found"
     );
 
     if (!progress) {
-      console.log("No progress found, returning 404");
       return res.status(404).json({ message: "Progress not found" });
     }
 
-    console.log(`Progress data has ${progress.sections?.length || 0} sections`);
 
     // Initialize total lessons and completed lessons counters
     let totalLessons = 0;
     let completedLessons = 0;
 
     // Add stats for each section
-    console.log("Processing sections and calculating stats");
     const sectionsWithStats = progress.sections.map(
       (section: any, index: number) => {
-        console.log(
           `Processing section ${index + 1}/${progress.sections.length}`
         );
         let sectionTotalLessons = 0;
         let sectionCompletedLessons = 0;
 
         // Calculate lessons for each section
-        console.log(
           `Section ${index + 1} has ${section.lessons?.length || 0} lessons`
         );
         section.lessons.forEach(
@@ -215,7 +197,6 @@ const getCourseProgress = async (req: Request, res: Response) => {
             sectionTotalLessons++; // Count all lessons in the section
             if (lesson.completed) {
               sectionCompletedLessons++; // Count completed lessons in the section
-              console.log(
                 `Lesson ${lessonIndex + 1} in section ${index + 1} is completed`
               );
             }
@@ -226,7 +207,6 @@ const getCourseProgress = async (req: Request, res: Response) => {
         totalLessons += sectionTotalLessons;
         completedLessons += sectionCompletedLessons;
 
-        console.log(
           `Section ${
             index + 1
           }: ${sectionCompletedLessons}/${sectionTotalLessons} lessons completed`
@@ -245,14 +225,12 @@ const getCourseProgress = async (req: Request, res: Response) => {
     const percentageCompleted =
       totalLessons > 0 ? completedLessons / totalLessons : 0;
 
-    console.log(
       `Overall progress: ${completedLessons}/${totalLessons} lessons completed (${(
         percentageCompleted * 100
       ).toFixed(2)}%)`
     );
 
     // Add the calculated stats to the response
-    console.log("Preparing final response with progress data and stats");
     const response = {
       progress: { ...progress, sections: sectionsWithStats },
       totalLessons,
@@ -260,11 +238,8 @@ const getCourseProgress = async (req: Request, res: Response) => {
       percentageCompleted, // Returns as a float (e.g., 0.25 for 25%)
     };
 
-    console.log("Response ready, sending 200 OK");
     res.status(200).json(response);
   } catch (err) {
-    console.log("Error retrieving course progress:", (err as Error).message);
-    console.log("Error stack:", (err as Error).stack);
     res.status(500).json({
       error: "Failed to retrieve progress",
       details: (err as Error).message,
@@ -411,7 +386,6 @@ const getAllNotes = async (req: Request, res: Response) => {
 
     res.status(200).json({ notes });
   } catch (err) {
-    console.log("Error retrieving notes:", (err as Error).message);
     res.status(500).json({
       error: "Failed to retrieve notes",
       details: (err as Error).message,

@@ -25,7 +25,6 @@ const OtherLoginOptions = () => {
       }, 1000);
     },
     onError: (error) => {
-      console.log("Error during google login process:", error);
       setShowIsError(true);
     },
   });
@@ -35,10 +34,8 @@ const OtherLoginOptions = () => {
       googleMutationLogin.mutate(credentialResponse.code);
     },
     onError: (error) => {
-      console.log("Error during google login process:", error);
     },
     onNonOAuthError: (nonAuthError) => {
-      console.log(nonAuthError);
     },
     flow: "auth-code",
     ux_mode: "popup",

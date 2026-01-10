@@ -29,7 +29,6 @@ const CheckoutContainer: React.FC = () => {
   const handleCheckout = () => {
     try {
       if (!cookie) {
-        console.log("Invalid or missing cookie. Redirecting to login.");
         navigate("/login");
         return;
       }
@@ -38,21 +37,18 @@ const CheckoutContainer: React.FC = () => {
       try {
         decoded = jwtDecode<DecodedTokenProps>(cookie);
       } catch (err: any) {
-        console.log("Failed to decode cookie:", err.message);
         navigate("/login");
         return;
       }
 
       const isLogged = dispatch(setRole(decoded?.role));
       if (!isLogged) {
-        console.log("User role dispatch failed. Redirecting to login.");
         navigate("/login");
         return;
       }
 
       navigate("/payment/checkout/");
     } catch (err: any) {
-      console.log("An unexpected error occurred:", err.message);
       navigate("/login");
     }
   };

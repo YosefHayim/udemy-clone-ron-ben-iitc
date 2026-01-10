@@ -44,7 +44,6 @@ const SharePopup = ({ isClicked, setClicked }) => {
     const emails = formData.get("emails");
     const recommendReason = formData.get("recommend");
     setSent(true);
-    console.log(emails, recommendReason);
   };
 
   const isSendDisabled = () => {

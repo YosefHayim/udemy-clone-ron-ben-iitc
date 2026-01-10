@@ -13,7 +13,6 @@ const checkAllRelationships = async () => {
   try {
     const report: string[] = [];
     const log = (msg: string) => {
-      console.log(msg);
       report.push(msg);
     };
 
@@ -76,7 +75,6 @@ const checkAllRelationships = async () => {
     fs.writeFileSync(filePath, report.join("\n"), "utf-8");
     log(`\n📄 Relationship report written to: ${filePath}`);
   } catch (error) {
-    console.log(error);
   }
 };
 

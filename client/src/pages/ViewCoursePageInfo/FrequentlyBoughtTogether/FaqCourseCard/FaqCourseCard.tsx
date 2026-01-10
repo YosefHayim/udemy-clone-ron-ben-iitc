@@ -48,7 +48,6 @@ const FrequentlyCourseCard: React.FC<{
   const handleAddToCart = (e: React.MouseEvent<HTMLDivElement>) => {
     const target = e.currentTarget;
     const courseId = target.closest("div[id]").id;
-    console.log(courseId);
     setLoading(true);
     setTimeout(() => {
       dispatch(setAmountOfCourses());

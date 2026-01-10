@@ -21,7 +21,6 @@ const DialogFrequentlyBoughtTogether: React.FC<{
   const [coursesAdded, setCoursesAdded] = useState([]);
 
   useEffect(() => {
-    console.log(coursesAdded);
   }, [coursesAdded]);
 
   return (

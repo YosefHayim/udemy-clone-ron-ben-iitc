@@ -26,7 +26,6 @@ const RatingsFilter = () => {
   const handleRatingClick = (rating: number) => {
     setSelectedRating(rating);
     setRatings(rating);
-    console.log("Selected Rating:", rating);
   };
 
   const handleClick: React.MouseEventHandler<HTMLDivElement> = () => {

@@ -8,11 +8,9 @@ const googleLogin = async (googleCode: string) => {
     const r = await axiosClient.post(url, { code: googleCode });
 
     if (r) {
-      console.log(r.data);
       return r?.data;
     }
   } catch (error) {
-    console.log(
       `Error has occurred durning request to backend via googleLogin: `,
       error.response.data.message
     );

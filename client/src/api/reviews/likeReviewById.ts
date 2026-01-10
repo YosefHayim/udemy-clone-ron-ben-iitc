@@ -11,11 +11,9 @@ export const likeReviewById: fn = async (idOfReview: string) => {
     const r = await axiosClient.post(url);
 
     if (r) {
-      console.log(r.data.data);
       return r;
     }
   } catch (error) {
-    console.log(`Error occurred during like a review: `, error.response.data.message);
     throw error;
   }
 };

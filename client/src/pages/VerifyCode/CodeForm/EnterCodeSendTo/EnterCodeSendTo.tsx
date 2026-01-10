@@ -1,5 +1,5 @@
 const EnterCodeSendTo = ({ emailUser }) => {
-  if (!emailUser) console.log("Email is missing in the context of send to code: ", emailUser);
+  if (!emailUser) 
 
   return (
     <div className="mb-6 w-full text-center text-base">

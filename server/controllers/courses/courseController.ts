@@ -11,7 +11,6 @@ import mongoose, { PipelineStage } from "mongoose";
 const getAllCourses = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
     // Step 1: Build base query with filters + search (exclude pagination for count)
-    console.log("req query request within controller: ", req.query);
 
     const featuresForCount = new APIFeatures(Course.find(), req.query)
       .filter()
@@ -63,7 +62,6 @@ const getRatingStatsBySearch = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
     const searchTerm = req.query.search as string;
 
-    console.log("🔍 Search term for rating stats:", searchTerm);
 
     if (
       !searchTerm ||
@@ -200,7 +198,6 @@ const joinCourseById = catchAsync(
         message: `Successfully joined ${course.courseName}`,
       });
     } catch (error) {
-      console.log("Error in joinCourseById:", error);
       return next(createError("An unexpected error occurred.", 500));
     }
   }

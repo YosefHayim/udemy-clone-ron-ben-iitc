@@ -12,11 +12,9 @@ const getCourseCartInfoByCourseId: fn = async (courseId: string) => {
     const r = await axiosClient.get(url);
 
     if (r) {
-      console.log(r.data.data);
       return r?.data?.data;
     }
   } catch (error) {
-    console.log(`Error occurred fetching course cart info: `, error.response.data.message);
     throw error;
   }
 };

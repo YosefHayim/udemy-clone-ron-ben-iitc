@@ -23,7 +23,6 @@ type InitializeProgressFn = (courseId: string) => Promise<void>;
  */
 const fetchCourseProgress: FetchProgressFn = async (courseId) => {
   if (!courseId) {
-    console.log("Invalid course ID provided.");
     throw new Error("Course ID is required.");
   }
 
@@ -39,14 +38,12 @@ const fetchCourseProgress: FetchProgressFn = async (courseId) => {
       typeof response.data.completedLessons === "number" &&
       typeof response.data.percentageCompleted === "number"
     ) {
-      console.log("respone:--", response);
       return response.data;
     }
 
     console.warn("Unexpected response structure:", response?.data);
     throw new Error("Invalid response format.");
   } catch (error) {
-    console.log(`Error fetching progress for course ID ${courseId}:`, error.response.data.message);
     throw error;
   }
 };
@@ -56,7 +53,6 @@ const fetchCourseProgress: FetchProgressFn = async (courseId) => {
  */
 const updateLessonProgress: UpdateLessonProgressFn = async (courseId, lessonId, payload) => {
   if (!courseId || !lessonId) {
-    console.log("Invalid course ID or lesson ID provided.");
     throw new Error("Course ID and Lesson ID are required.");
   }
 
@@ -70,7 +66,6 @@ const updateLessonProgress: UpdateLessonProgressFn = async (courseId, lessonId, 
       throw new Error("Failed to update lesson progress.");
     }
   } catch (error: any) {
-    console.log(
       `Error updating lesson progress for course ${courseId} and lesson ${lessonId}:`,
       error
     );
@@ -86,7 +81,6 @@ const updateLessonProgress: UpdateLessonProgressFn = async (courseId, lessonId, 
  */
 const initializeCourseProgress: InitializeProgressFn = async (courseId) => {
   if (!courseId) {
-    console.log("Invalid course ID provided.");
     throw new Error("Course ID is required.");
   }
 
@@ -100,7 +94,6 @@ const initializeCourseProgress: InitializeProgressFn = async (courseId) => {
       throw new Error("Failed to initialize course progress.");
     }
   } catch (error) {
-    console.log(`Error initializing progress for course ID ${courseId}:`, error);
     throw new Error(
       error.response?.data?.message || `Failed to initialize progress for course ID ${courseId}`
     );

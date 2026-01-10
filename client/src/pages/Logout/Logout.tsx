@@ -12,7 +12,6 @@ const Logout: React.FC = () => {
     const closestDiv = target.closest("div[id]");
     if (closestDiv) {
       const categoryName = closestDiv.id;
-      console.log(categoryName);
       setSelectedCategory(categoryName);
     }
   };

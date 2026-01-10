@@ -9,11 +9,9 @@ const getInstructorById = async (instructorId: string) => {
     const r = await axiosClient.get(url);
 
     if (r) {
-      console.log(r.data.data);
       return r?.data?.data;
     }
   } catch (error) {
-    console.log(
       `Error has been occurred durning getting instructor information: `,
       error.response.data.message
     );

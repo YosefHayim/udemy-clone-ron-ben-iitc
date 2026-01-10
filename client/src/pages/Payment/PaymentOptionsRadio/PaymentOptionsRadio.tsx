@@ -21,7 +21,6 @@ const PaymentOptionsRadio: React.FC = () => {
       value: { ...options, isPaypal: newIsPaypal },
     });
 
-    console.log("PayPal toggled:", newIsPaypal);
   };
 
   return (

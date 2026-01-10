@@ -30,14 +30,14 @@
 //     });
 
 //     socketInstance.on("welcomeToServer", (data) => {
-//       console.log(data);
+//       
 //     });
 
 //     socketInstance.on("connect_error", (err) => {
-//       console.log("Connection failed:", err.data);
+//       
 //       if (err.data) {
 //         dispatch(clearUser());
-//         console.log("Your account has been deleted or not created please log in.");
+//         
 //       }
 //     });
 

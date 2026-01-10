@@ -28,7 +28,6 @@ const DialogChangeEmail: React.FC<DialogChangeEmailProps> = ({ isDialogOpen, set
   const mutateUpdatePersonalInfo = useMutation({
     mutationFn: updatePersonalInfo,
     onSuccess: (data) => {
-      console.log(data);
 
       setTimeout(() => {
         setUserInformation(cookie, dispatch);
@@ -36,7 +35,6 @@ const DialogChangeEmail: React.FC<DialogChangeEmailProps> = ({ isDialogOpen, set
       }, 500);
     },
     onError: (error) => {
-      console.log(`Error occurred durning update user information: `, error.response.message);
     },
   });
 
@@ -45,7 +43,6 @@ const DialogChangeEmail: React.FC<DialogChangeEmailProps> = ({ isDialogOpen, set
     const formData = new FormData(e.currentTarget);
     const email = formData.get("email");
 
-    console.log(email);
 
     mutateUpdatePersonalInfo.mutate({
       email,

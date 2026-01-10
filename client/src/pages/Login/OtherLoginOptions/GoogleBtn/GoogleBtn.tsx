@@ -25,7 +25,6 @@ const GoogleBtn = () => {
       }, 1000);
     },
     onError: (error) => {
-      console.log("Error during google login process:", error.response.data);
       setShowIsError(true);
     },
   });
@@ -35,10 +34,8 @@ const GoogleBtn = () => {
       googleMutationLogin.mutate(credentialResponse.code);
     },
     onError: (error) => {
-      console.log(`Error occurred durning login via google: `, error.response.data);
     },
     onNonOAuthError: (nonAuthError) => {
-      console.log(nonAuthError);
     },
     flow: "auth-code",
     ux_mode: "popup",

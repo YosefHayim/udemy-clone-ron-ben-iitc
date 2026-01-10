@@ -5,11 +5,9 @@ const refreshMe = async () => {
     const r = await axiosClient.post(`${isProduction ? baseUrl : localhostUrl}/api/user/me`);
 
     if (r) {
-      console.log(r.data);
       return r.data;
     }
   } catch (error) {
-    console.log(`Error has been occurred durning refreshing user: `, error.response.data.message);
     throw error;
   }
 };

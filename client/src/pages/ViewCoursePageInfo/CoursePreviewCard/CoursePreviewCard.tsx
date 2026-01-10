@@ -44,7 +44,6 @@ const CoursePreviewCard: React.FC<{
   const [isAlreadyBought, setAlreadyBought] = useState(false);
   const [isAlreadyInCart, setAlreadyInCart] = useState(false);
   const navigate = useNavigate();
-  console.log("currentPosition", currentPosition);
 
   const coursesBought = useSelector((state: RootState) => state?.user?.coursesBought);
 

@@ -7,7 +7,6 @@ const SelectCountry = () => {
 
   const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setSelectedCountry(e.target.value);
-    console.log("Selected Country:", e.target.value);
   };
 
   return (

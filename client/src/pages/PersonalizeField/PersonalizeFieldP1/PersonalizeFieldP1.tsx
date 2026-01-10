@@ -16,7 +16,6 @@ const PersonalizeFieldP1 = () => {
         ...structuredClone(prevData),
         occupation: chosenValue,
       }));
-      console.log(chosenInput.value);
     }
   };
 

@@ -40,7 +40,6 @@ const Checkout: React.FC<{ isPaypal: ReactPayPalScriptOptions }> = ({ isPaypal }
   const refreshUserDataMutation = useMutation({
     mutationFn: refreshMe,
     onSuccess: (data) => {
-      console.log(data);
       setUserInformation(data.token, dispatch);
       setTimeout(() => {
         navigate(`/course-view/${navigateFirstCourseBought}`);
@@ -50,7 +49,6 @@ const Checkout: React.FC<{ isPaypal: ReactPayPalScriptOptions }> = ({ isPaypal }
 
   const handleClick = async () => {
     if (!coursesIds.length) {
-      console.log("No courses available for checkout.");
       return;
     }
 
@@ -60,24 +58,20 @@ const Checkout: React.FC<{ isPaypal: ReactPayPalScriptOptions }> = ({ isPaypal }
     if (coursesIds.length === 1) {
       const courseId = coursesIds[0];
       if (!courseId) {
-        console.log("Invalid courseId received.");
         return;
       }
       checkOutMutation.mutate(courseId);
       await initializeCourseProgress(courseId);
       setNavigateFirstCourseBought(courseId);
-      console.log(`single course navigate purchase: `, navigateFirstCourseBought);
     } else {
       checkOutMultiMutation.mutate(coursesIds);
       setNavigateFirstCourseBought(coursesIds[0]);
-      console.log(`multiple course navigate purchases: `, navigateFirstCourseBought);
       return Promise.all(coursesIds.map((id) => initializeCourseProgress(id)));
     }
   };
 
   const checkOutMultiMutation = useMutation({
     mutationFn: async (courseIds: string[]) => {
-      console.log("Course ids going to purchase: ", courseIds);
 
       return Promise.all(
         courseIds.map(async (id) => {

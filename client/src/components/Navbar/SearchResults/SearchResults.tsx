@@ -16,7 +16,6 @@ const SearchResults: React.FC<{
         >
           {data?.response?.slice(0, 13).map(
             (courseCardResult, index: number) => (
-              console.log(courseCardResult),
               (
                 <div key={courseCardResult._id}>
                   {index < 9 ? (

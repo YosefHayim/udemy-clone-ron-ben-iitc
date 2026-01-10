@@ -478,7 +478,6 @@ const updateUserInfo = catchAsync(
       isAuthActivate,
     } = req.body;
 
-    console.log(req.body);
 
     const updatedUser = await User.findByIdAndUpdate(
       req.user._id,
@@ -682,7 +681,7 @@ const googleLoginOrSignUp = catchAsync(
       );
 
       const { email, name, picture } = userResponse.data;
-      // console.log(userResponse.data);
+      // 
 
       let user = await User.findOne({ email });
 
@@ -736,7 +735,6 @@ const googleLoginOrSignUp = catchAsync(
     } catch (error) {
       const errorData = (error as any).response?.data;
       const errorMessage = (error as any).message;
-      console.log("Google login error:", errorData || errorMessage);
 
       // Return more specific error message for debugging
       const message = errorData?.error_description || errorData?.error || errorMessage || "Authentication failed";

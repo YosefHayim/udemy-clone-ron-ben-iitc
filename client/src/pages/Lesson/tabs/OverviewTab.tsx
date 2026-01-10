@@ -10,20 +10,20 @@ const OverviewTab: React.FC = () => {
   const { courseId } = useParams<{ courseId: string }>();
 
   // Log courseId for debugging
-  // console.log("Raw courseId from useParams:", courseId);
+  // 
 
   const sanitizedCourseId = courseId?.trim().replace(/^:/, "");
 
   const { data, isLoading, error } = useQuery({
     queryKey: ["course", sanitizedCourseId],
     queryFn: () => {
-      // console.log("Calling fetchCourseById with:", sanitizedCourseId);
+      // 
       return fetchCourseById(sanitizedCourseId || "");
     },
     enabled: !!sanitizedCourseId,
   });
 
-  // console.log("React Query status:", { isLoading, error, data });
+  // 
 
   if (isLoading) return;
   <div>{/* <Loader /> */}</div>;
@@ -32,7 +32,7 @@ const OverviewTab: React.FC = () => {
 
   const course = data;
 
-  // console.log("Fetched course data:", course);
+  // 
 
   return (
     <div id="overview" className="p-20 pt-5">

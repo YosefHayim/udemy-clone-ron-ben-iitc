@@ -22,7 +22,6 @@ const CodeForm = ({ emailUser, userFullName, isClickedResend }) => {
   const verifyCodeMutation = useMutation({
     mutationFn: verifyCode,
     onSuccess: (data) => {
-      console.log(data);
       setUserInformation(data.token, dispatch);
       setTimeout(() => {
         navigate("/");
@@ -37,7 +36,6 @@ const CodeForm = ({ emailUser, userFullName, isClickedResend }) => {
   const loginMutation = useMutation({
     mutationFn: loginUser,
     onSuccess: (data) => {
-      console.log(data);
       setCodeVerification(data.codeVerification);
     },
   });

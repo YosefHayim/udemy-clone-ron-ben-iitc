@@ -7,7 +7,6 @@ const InstructorCourses: React.FC<{ coursesCreated: string[] }> = ({ coursesCrea
   const handleNavigate = (e: React.MouseEvent<HTMLDivElement>) => {
     const target = e.currentTarget;
     const courseDiv = target.closest("div[id]");
-    console.log(courseDiv?.id);
     const courseId = courseDiv?.id;
     navigate(`/course-view/${courseId}`);
   };

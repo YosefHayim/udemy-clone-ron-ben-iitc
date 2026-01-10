@@ -38,7 +38,7 @@
 
 //       // Attach user to socket for later use
 //       socket.user = user;
-//       console.log(`✅ Authenticated: ${user.fullName}`);
+//       
 //       next();
 //     } catch (error) {
 //       const err = new Error("DB error during user auth");
@@ -49,14 +49,14 @@
 
 //   // Main socket connection
 //   io.on("connection", (socket) => {
-//     console.log("🔌 New socket connected:", socket.id);
+//     
 
 //     // Emit welcome message
 //     socket.emit("welcomeToServer", "Welcome to the Udemy clone socket server");
 
 //     // Handle userConnected event
 //     socket.on("userConnected", ({ emailOfUser }) => {
-//       console.log("👤 User connected from client:", emailOfUser);
+//       
 //     });
 //   });
 // };

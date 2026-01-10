@@ -16,9 +16,7 @@ const transporter = nodemailer.createTransport({
 const sendEmail = (mailOptions: any) => {
   transporter.sendMail(mailOptions, function (error) {
     if (error) {
-      console.log(error);
     } else {
-      console.log("Email sent");
     }
   });
 };

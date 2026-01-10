@@ -41,12 +41,10 @@ const DialogReportReview: React.FC<{
   const mutation = useMutation({
     mutationFn: reportUserReviewByReviewId,
     onSuccess: (data) => {
-      console.log(data);
       // Show the acknowledgment message
       setIsClicked(true);
     },
     onError: (error) => {
-      console.log("Error reporting review:", error.response.data);
     },
   });
 

@@ -9,11 +9,9 @@ const updatePersonalizeUserField = async (personalizeField: personalizeFieldPayl
     const r = await axiosClient.put(url, personalizeField);
 
     if (r) {
-      console.log(r.data.data);
       return r.data;
     }
   } catch (error) {
-    console.log("Error in updatePersonalizeUserField", error.response.data.message);
     throw error;
   }
 };

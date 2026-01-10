@@ -15,11 +15,9 @@ const verifyCode: fn = async (verificationCredentials) => {
     );
 
     if (r) {
-      console.log(r);
       return r?.data;
     }
   } catch (error) {
-    console.log(`Error occurred during the login of user: `, error.response.data.message);
     throw error;
   }
 };

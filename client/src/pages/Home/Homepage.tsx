@@ -30,7 +30,6 @@ const Homepage = () => {
 
   const uniqueSearches = [...new Set(parsedSearches)];
 
-  console.log(uniqueSearches);
 
   useEffect(() => {}, [cookie]);
 

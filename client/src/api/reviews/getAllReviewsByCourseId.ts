@@ -12,11 +12,9 @@ const getAllReviewsByCourseId: fn = async (courseId = "") => {
     const r = await axiosClient.get(url);
 
     if (r) {
-      console.log(r.data.data);
       return r?.data?.data;
     }
   } catch (error) {
-    console.log(`Error fetching course with ID ${sanitizedCourseId}:`, error.response.data.message);
     throw error;
   }
 };

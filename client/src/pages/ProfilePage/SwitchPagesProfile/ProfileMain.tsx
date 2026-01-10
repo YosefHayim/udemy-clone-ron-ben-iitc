@@ -29,7 +29,6 @@ const ProfileMain = () => {
   const mutateUpdatePersonalInfo = useMutation({
     mutationFn: updatePersonalInfo,
     onSuccess: (data) => {
-      console.log(data);
 
       setTimeout(() => {
         setUserInformation(cookie, dispatch);
@@ -37,7 +36,6 @@ const ProfileMain = () => {
       }, 500);
     },
     onError: (error) => {
-      console.log(`Error occurred durning update user information: `, error.response.message);
     },
   });
 

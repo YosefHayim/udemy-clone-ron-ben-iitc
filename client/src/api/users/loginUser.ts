@@ -16,12 +16,10 @@ const loginUser: fn = async (email) => {
     );
 
     if (r) {
-      console.log(r.data);
 
       return r?.data?.data;
     }
   } catch (error) {
-    console.log(`Error occurred during the login of user: `, error.response.data.message);
     throw error;
   }
 };

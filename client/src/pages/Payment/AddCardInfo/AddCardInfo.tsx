@@ -9,7 +9,7 @@ const AddCardInfo: React.FC = () => {
     const creditCardNumber = formData.get("card-number");
     const date = formData.get("date");
     const cvv = formData.get("cvv");
-    // console.log(visaOwnerName, creditCardNumber, date, cvv);
+    // 
   };
 
   return (

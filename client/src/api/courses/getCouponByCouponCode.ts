@@ -8,11 +8,9 @@ const getCouponByCouponCode = async (couponCode: string) => {
     const r = await axiosClient.get(url);
 
     if (r) {
-      console.log(r.data.data);
       return r.data.exists;
     }
   } catch (error) {
-    console.log(`Error occurred durning getting coupon by code: `, error.response.data.message);
     throw error;
   }
 };

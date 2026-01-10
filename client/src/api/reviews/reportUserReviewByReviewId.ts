@@ -17,11 +17,9 @@ const reportUserReviewByReviewId: fn = async ({ reviewId, issueType, issueDetail
     const r = await axiosClient.post(url, payload);
 
     if (r) {
-      console.log(r.data.data);
       return r;
     }
   } catch (error) {
-    console.log(
       `Error reporting review with ID ${sanitizedReviewId}:`,
       error.response.data.message
     );

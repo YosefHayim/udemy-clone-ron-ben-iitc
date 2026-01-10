@@ -80,7 +80,6 @@ const NotesTab: React.FC<NotesTabProps> = ({ currentSec, courseId, lessonId }) =
       // Reset content after successful mutation
     },
     onError: (error: any) => {
-      console.log("Failed to process note:", error.message);
     },
   });
 
@@ -124,7 +123,6 @@ const NotesTab: React.FC<NotesTabProps> = ({ currentSec, courseId, lessonId }) =
     all === "Current lecture" ? note.lessonId === lessonId : true
   );
 
-  console.log("filtered notes", filteredNotes);
 
   return (
     <div id="notes" className="min-w-full px-80">

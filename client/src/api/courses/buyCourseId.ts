@@ -8,11 +8,9 @@ const buyCourseById = async (courseId: string | string) => {
 
     const r = await axiosClient.post(url);
     if (r) {
-      console.log(r.data);
       return r.data;
     }
   } catch (error) {
-    console.log("Error occurred during buying courses for user: ", error.response.data.message);
     throw error;
   }
 };

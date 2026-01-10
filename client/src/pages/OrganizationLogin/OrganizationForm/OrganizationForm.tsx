@@ -6,7 +6,6 @@ const OrganizationForm = () => {
     const target = e.currentTarget;
     const formData = new FormData(target);
     const email = formData.get("email");
-    console.log(email);
   };
 
   return (

@@ -27,7 +27,6 @@ const LoginForm = ({ showOnlyLoginButton = true }) => {
     },
     onError: (error) => {
       const message = getErrorMessage(error);
-      console.log("Error during login process:", message);
       setErrorMessage(message);
       setShowIsError(true);
     },

@@ -2,7 +2,6 @@ import { axiosClient, baseUrl, isProduction, localhostUrl } from "../configurati
 
 const getAllCourses = async (searchTerm = "", filterData, limit = 13, page = 1) => {
   if (!searchTerm) {
-    console.log("Search term is required");
     return;
   }
 
@@ -54,7 +53,6 @@ const getAllCourses = async (searchTerm = "", filterData, limit = 13, page = 1) 
 
   try {
     const response = await axiosClient.get(url);
-    console.log(response.data);
     return response.data;
   } catch (error) {
     console.error("Error fetching courses:", error?.response?.data?.message || error.message);

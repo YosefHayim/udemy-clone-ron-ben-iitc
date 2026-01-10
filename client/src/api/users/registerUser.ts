@@ -13,11 +13,9 @@ const registerUser: fn = async (data: RegisterUserPayload): Promise<any> => {
     );
 
     if (r) {
-      console.log(r.data);
       return r;
     }
   } catch (error) {
-    console.log(`Error occurred during the signup: `, error.response.data.message);
     throw error;
   }
 };

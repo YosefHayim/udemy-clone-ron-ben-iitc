@@ -103,7 +103,6 @@ const ViewCoursePageInfo = () => {
     return navigate("/not/found");
   }
 
-  console.log(data);
 
   return (
     <div>
