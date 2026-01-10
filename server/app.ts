@@ -27,8 +27,9 @@ const PORT: number = Number(process.env.PORT) || 3000;
 
 // Allowed CORS origins
 export const allowedOrigins: string[] = [
-  "http://localhost:5173", 
-  "https://udemy-clone-ron-and-ben-front.onrender.com", 
+  "http://localhost:5173",
+  "https://udemy-clone-ron-and-ben-front.onrender.com",
+  "https://udemy-clone-ron-ben-iitc.onrender.com",
   "http://127.0.0.1:5173",
   "http://localhost:4173",
 ];
