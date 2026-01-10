@@ -1,17 +1,20 @@
-import { btnStyleNHover } from "@/utils/stylesStorage";
-import { useContext, useEffect, useState } from "react";
-import { categoriesData } from "@/utils/categoriesData";
-import { navbarCategories } from "@/utils/navbarCategories";
-import { getRandomLearnersAmount } from "@/utils/randomLearnersAmount";
-import { topics } from "@/utils/topics";
+import { useCallback, useContext, useEffect, useRef, useState } from "react";
+
 import ButtonsCarousel from "@/components/ButtonsCarousel/ButtonsCarousel";
-import { useQuery } from "@tanstack/react-query";
-import getAllCourses from "@/api/courses/getAllCourses";
-import { useNavigate } from "react-router-dom";
-import { searchAlgoLocalStorage } from "@/utils/searchesOfUser";
-import HomeCourseCard from "@/components/HomeCourseCard/HomeCourseCard";
-import { FilterContext } from "@/contexts/FilterSearch";
 import CourseHoverCardInfo from "@/pages/Search/CourseHoverCardInfo/CourseHoverCardInfo";
+import { FilterContext } from "@/contexts/FilterSearch";
+import HomeCourseCard from "@/components/HomeCourseCard/HomeCourseCard";
+import Loader from "@/components/Loader/Loader";
+import { btnStyleNHover } from "@/utils/stylesStorage";
+import { categoriesData } from "@/utils/categoriesData";
+import getAllCourses from "@/api/courses/getAllCourses";
+import { getRandomLearnersAmount } from "@/utils/randomLearnersAmount";
+import { navbarCategories } from "@/utils/navbarCategories";
+import { searchAlgoLocalStorage } from "@/utils/searchesOfUser";
+import { topics } from "@/utils/topics";
+import { useMediaQuery } from "react-responsive";
+import { useNavigate } from "react-router-dom";
+import { useQuery } from "@tanstack/react-query";
 
 const Sections = () => {
   const navigate = useNavigate();
@@ -25,6 +28,21 @@ const Sections = () => {
   const [countCourseClick, setCourseClick] = useState(0);
   const [hoveredCourse, setHoveredCourse] = useState(null);
   const [hoverPosition, setHoverPosition] = useState({ top: 0, left: 0 });
+  const hideTimerRef = useRef<NodeJS.Timeout | null>(null);
+  const isDesktop = useMediaQuery({ minWidth: 1024 });
+
+  const startHideTimer = useCallback(() => {
+    hideTimerRef.current = setTimeout(() => {
+      setHoveredCourse(null);
+    }, 150);
+  }, []);
+
+  const cancelHideTimer = useCallback(() => {
+    if (hideTimerRef.current) {
+      clearTimeout(hideTimerRef.current);
+      hideTimerRef.current = null;
+    }
+  }, []);
 
   const handlePrev = () => {
     if (isAnimating || currentIndex === 0) return;
@@ -77,7 +95,7 @@ const Sections = () => {
 
   const [choseTopic, setChooseTopic] = useState(getDefaultTopic());
 
-  const { data } = useQuery({
+  const { data, isFetching } = useQuery({
     queryKey: [`Sections`, choseTopic],
     queryFn: () => getAllCourses(choseTopic, filterData),
     enabled: !!choseTopic,
@@ -96,13 +114,13 @@ const Sections = () => {
     <div className="flex w-full flex-col items-center justify-center">
       {/* title and menu */}
       <div className="flex w-full flex-col items-center justify-center px-5 pt-5">
-        <h1 className="font-[Armin Grotesk] ml-[12rem] mt-12 flex w-full justify-start text-[2rem] font-extrabold text-gray-900">
+        <h1 className="font-[Armin Grotesk] ml-4 mt-12 flex w-full justify-start text-[2rem] font-extrabold text-gray-900 md:ml-8 lg:ml-[12rem]">
           All the skills you need in one place
         </h1>
-        <p className="font-[Armin Grotesk] mb-6 ml-[12rem] mt-2 flex w-full justify-start text-[1.2rem] text-gray-600">
+        <p className="font-[Armin Grotesk] mb-6 ml-4 mt-2 flex w-full justify-start text-[1.2rem] text-gray-600 md:ml-8 lg:ml-[12rem]">
           From critical skills to technical topics, Udemy supports your professional development.
         </p>
-        <div className="ml-[12rem] flex w-full items-center justify-start gap-5 pt-5">
+        <div className="ml-4 flex w-full items-center justify-start gap-5 overflow-x-auto pt-5 md:ml-8 md:overflow-visible lg:ml-[12rem]">
           {navbarCategories?.map((category, index) => (
             <div
               onClick={() => setNavbarCategory(category)}
@@ -121,29 +139,29 @@ const Sections = () => {
         <hr className="w-full" />
       </div>
 
-      <div className="flex w-full flex-col items-center justify-center gap-1 bg-gray-100 p-5">
+      <div className="flex w-full max-w-full flex-col items-center justify-center gap-1 overflow-hidden bg-gray-100 p-3 sm:p-5">
         {/* Circle Categories*/}
-        <div className="flex w-full max-w-[calc(100%-11.5rem)] overflow-clip">
+        <div className="relative flex w-full max-w-full overflow-hidden">
           <ButtonsCarousel
             handleFnNext={handleNext}
             handleFnPrev={handlePrev}
             state={countClick}
             useCustom={true}
             showDirectionalButtonsOnlyOnEdge={true}
-            topPosition="100%"
-            leftPosition="5.2%"
-            rightPosition="5.7%"
+            topPosition="50%"
+            leftPosition="1%"
+            rightPosition="1%"
           />
-          <div className="mt-3 flex w-auto">
+          <div className="mt-3 flex w-full overflow-x-auto pb-2">
             {categoriesData?.map((category, i) => {
               const match = category?.subcategory.find((sub) => sub?.title === navbarCategory);
               if (!match) return null;
               return (
                 <div
                   key={i + 2}
-                  className={`flex w-full items-center justify-center gap-2 transition-transform duration-1000`}
+                  className="flex w-max items-center justify-start gap-2 transition-transform duration-1000 lg:justify-center"
                   style={{
-                    transform: `translateX(-${currentIndex * 8}%)`,
+                    transform: isDesktop ? `translateX(-${currentIndex * 8}%)` : "none",
                   }}
                 >
                   {match?.topics?.map((topic, idx) => (
@@ -152,12 +170,14 @@ const Sections = () => {
                       onClick={() => setChooseTopic(topic)}
                       className={`${
                         choseTopic === topic
-                          ? "w-full bg-blackUdemy text-white hover:bg-grayUdemyHover"
+                          ? "bg-blackUdemy text-white hover:bg-grayUdemyHover"
                           : ""
-                      } flex w-max cursor-pointer flex-col items-start justify-start rounded-full bg-[#e9eaf2] p-5 text-blackUdemy hover:bg-grayUdemy`}
+                      } flex shrink-0 cursor-pointer flex-col items-start justify-start rounded-full bg-[#e9eaf2] p-3 text-blackUdemy hover:bg-grayUdemy sm:p-5`}
                     >
-                      <b className="w-max text-base">{topic}</b>
-                      {idx < topics.length - 1 ? <p>{getRandomLearnersAmount()}</p> : null}
+                      <b className="whitespace-nowrap text-sm sm:text-base">{topic}</b>
+                      {idx < topics.length - 1 ? (
+                        <p className="text-xs sm:text-sm">{getRandomLearnersAmount()}</p>
+                      ) : null}
                     </div>
                   ))}
                 </div>
@@ -167,8 +187,8 @@ const Sections = () => {
         </div>
 
         {/* carrousel courses */}
-        <div className="relative ml-[11.5rem] w-full overflow-visible">
-          {data?.response && data?.response?.length > 7 && (
+        <div className="relative w-full overflow-hidden">
+          {data?.response && data?.response?.length > 7 && isDesktop && !isFetching && (
             <ButtonsCarousel
               handleFnNext={handleNextCourse}
               handleFnPrev={handlePrevCourse}
@@ -176,37 +196,54 @@ const Sections = () => {
               useCustom={true}
               showDirectionalButtonsOnlyOnEdge={false}
               topPosition="41%"
-              leftPosition="-1.5%"
-              rightPosition="10.7%"
+              leftPosition="1%"
+              rightPosition="1%"
             />
           )}
-          <div
-            className="flex w-full items-center justify-start gap-4 py-4 transition-transform duration-1000 ease-in-out"
-            style={{ transform: `translateX(-${courseIndex * 100}%)` }}
-          >
-            {[...Array(Math.ceil((data?.response?.length || 0) / 4))].map((_, groupIndex) => {
-              const coursesGroup = data?.response?.slice(groupIndex * 4, groupIndex * 4 + 4);
+          {isFetching ? (
+            <div>
+              <Loader useSmallLoading={true} hSize="100" />
+            </div>
+          ) : (
+            <div
+              className="flex w-full items-center justify-start gap-4 overflow-x-auto py-4 transition-transform duration-1000 ease-in-out lg:overflow-visible"
+              style={{ transform: isDesktop ? `translateX(-${courseIndex * 100}%)` : "none" }}
+            >
+              {isDesktop
+                ? // Desktop: grouped carousel with transform
+                  [...Array(Math.ceil((data?.response?.length || 0) / 4))].map((_, groupIndex) => {
+                    const coursesGroup = data?.response?.slice(groupIndex * 4, groupIndex * 4 + 4);
 
-              return (
-                <div key={groupIndex} className="flex min-w-full flex-shrink-0 gap-4">
-                  {coursesGroup.map((courseCard, i) => (
-                    // <HomeCourseCard
-                    //   courseCard={courseCard}
-                    //   index={courseCard._id}
-                    //   key={courseCard._id}
-                    // />
+                    return (
+                      <div key={groupIndex} className="flex min-w-full flex-shrink-0 gap-4">
+                        {coursesGroup.map((courseCard) => (
+                          <HomeCourseCard
+                            key={courseCard._id}
+                            courseCard={courseCard}
+                            index={courseCard._id}
+                            onHover={setHoveredCourse}
+                            onPosition={setHoverPosition}
+                            onStartHideTimer={startHideTimer}
+                            onCancelHideTimer={cancelHideTimer}
+                          />
+                        ))}
+                      </div>
+                    );
+                  })
+                : // Tablet/Mobile: flat scrollable list
+                  data?.response?.map((courseCard) => (
                     <HomeCourseCard
                       key={courseCard._id}
                       courseCard={courseCard}
                       index={courseCard._id}
                       onHover={setHoveredCourse}
                       onPosition={setHoverPosition}
+                      onStartHideTimer={startHideTimer}
+                      onCancelHideTimer={cancelHideTimer}
                     />
                   ))}
-                </div>
-              );
-            })}
-          </div>
+            </div>
+          )}
         </div>
 
         {/* hoveredCourse */}
@@ -217,6 +254,8 @@ const Sections = () => {
               top: `${hoverPosition.top - hoverPosition.top / 20}px`,
               left: `${hoverPosition.left}px`,
             }}
+            onMouseEnter={cancelHideTimer}
+            onMouseLeave={startHideTimer}
           >
             <CourseHoverCardInfo
               courseName={hoveredCourse?.courseName}
@@ -242,7 +281,7 @@ const Sections = () => {
           </div>
         )}
 
-        <div className="my-2 ml-[11.5rem] w-full">
+        <div className="my-2 ml-4 w-full md:ml-8 lg:ml-[11.5rem]">
           <button
             onClick={handleNavigation}
             className={`${btnStyleNHover} border border-purple-800 font-sans text-[0.875rem] font-bold text-purple-800`}

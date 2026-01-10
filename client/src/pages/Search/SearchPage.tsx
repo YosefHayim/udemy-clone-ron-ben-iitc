@@ -15,6 +15,7 @@ import RelatedSearches from "./RelatedSearches/RelatedSearches";
 import { getTopValue } from "@/utils/geTopValues";
 import { searchAlgoLocalStorage } from "@/utils/searchesOfUser";
 import { FilterContext } from "@/contexts/FilterSearch";
+import { IoCloseOutline } from "react-icons/io5";
 
 const SearchPage: React.FC = () => {
   const { filterData } = useContext(FilterContext);
@@ -24,6 +25,7 @@ const SearchPage: React.FC = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const searchTerm: string | null = searchParams.get("q")?.toLowerCase();
   const [hoveredCourse, setHoveredCourse] = useState<string | null>(null);
+  const [showMobileFilter, setShowMobileFilter] = useState(false);
 
   // Update URL dynamically when filterData or page changes
   useEffect(() => {
@@ -71,19 +73,49 @@ const SearchPage: React.FC = () => {
   return (
     <div className="w-full bg-white" ref={useScrollRef}>
       {/* Central container */}
-      <div className="mx-auto max-w-screen-xl py-8">
+      <div className="mx-auto max-w-screen-xl px-4 py-4 sm:px-6 sm:py-8">
         {/* Filter */}
-        <FilterNSort coursesResults={data?.totalCourses} searchTerm={searchTerm} />
+        <FilterNSort
+          coursesResults={data?.totalCourses}
+          searchTerm={searchTerm}
+          onFilterToggle={() => setShowMobileFilter(true)}
+        />
 
-        {/* Grid layout: Sidebar | Curses */}
+        {/* Mobile Filter Overlay */}
+        {showMobileFilter && (
+          <div className="fixed inset-0 z-[1000] lg:hidden">
+            {/* Backdrop */}
+            <div
+              className="absolute inset-0 bg-black bg-opacity-50"
+              onClick={() => setShowMobileFilter(false)}
+            />
+            {/* Filter Panel */}
+            <div className="absolute left-0 top-0 h-full w-[320px] max-w-[85vw] overflow-y-auto bg-white shadow-lg">
+              <div className="sticky top-0 z-10 flex items-center justify-between border-b bg-white p-4">
+                <h2 className="text-lg font-bold">Filter</h2>
+                <button
+                  onClick={() => setShowMobileFilter(false)}
+                  className="rounded-full p-2 hover:bg-gray-100"
+                >
+                  <IoCloseOutline size={24} />
+                </button>
+              </div>
+              <div className="p-4">
+                <SidebarFilter />
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Grid layout: Sidebar | Courses */}
         <div className="mt-4 flex gap-6">
-          {/* Sidebar on the left */}
-          <aside className="w-[320px] shrink-0">
+          {/* Sidebar on the left - hidden on mobile/tablet */}
+          <aside className="hidden w-[320px] shrink-0 lg:block">
             <SidebarFilter />
           </aside>
 
-          {/* courses on the right */}
-          <main className="flex flex-grow flex-col">
+          {/* courses on the right - full width on mobile/tablet */}
+          <main className="w-full flex-grow flex-col lg:w-auto">
             <div className="flex flex-col gap-1">
               {data?.response?.slice(0, 18).map((course, index: number) => (
                 <div

@@ -23,11 +23,11 @@ const SearchCourseCard = ({ course }) => {
 
   return (
     <div id={course._id} onClick={() => handleCardClick(course._id)}>
-      <div className="flex w-auto cursor-pointer items-start justify-between">
-        <div className="flex items-start justify-center gap-[1em] text-[0.8rem]">
+      <div className="flex w-full max-w-full cursor-pointer flex-col items-start justify-between gap-2 sm:flex-row sm:gap-4">
+        <div className="flex w-full items-start justify-start gap-2 text-[0.8rem] sm:gap-[1em]">
           <CourseImg courseImg={course.courseImg} />
 
-          <div className="flex w-full flex-col items-start justify-start gap-[0.3em] text-[0.8rem]">
+          <div className="flex min-w-0 flex-1 flex-col items-start justify-start gap-[0.3em] text-[0.8rem]">
             <CourseTitle title={course.courseName} />
             <CourseRecap recapInfo={course.courseRecapInfo} />
             <CourseInstructor instructor={course.courseInstructor.fullName} />

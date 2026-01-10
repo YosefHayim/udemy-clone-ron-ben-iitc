@@ -19,6 +19,7 @@ import commentRoute from "./routes/reviews/commentRoute.ts";
 import reviewRoute from "./routes/reviews/reviewRoute.ts";
 import reportReviewRoute from "./routes/reviews/reportReviewRoute.ts";
 import instructorRoute from "./routes/users/instructorRoute.ts";
+import configRoute from "./routes/configRoute.ts";
 // import { launchSocket, server } from "./sockets/launchSocket.ts";
 
 dotenv.config();
@@ -72,6 +73,7 @@ app.get("/", (req: Request, res: Response) => {
 });
 
 // API Routes
+app.use("/api/config", configRoute);
 app.use("/api/user", userRoute);
 app.use("/api/course", courseRoute);
 app.use("/api/section", sectionRoute);

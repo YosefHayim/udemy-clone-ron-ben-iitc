@@ -3,7 +3,7 @@ const CourseTitle: React.FC<{ title?: string; shortcutTitle?: boolean }> = ({
   shortcutTitle = false,
 }) => {
   const cuttedTitleCourse = shortcutTitle && title.length > 20 ? `${title.slice(0, 20)}...` : title;
-  return <b className="w-auto">{cuttedTitleCourse}</b>;
+  return <b className="line-clamp-2 w-full break-words">{cuttedTitleCourse}</b>;
 };
 
 export default CourseTitle;

@@ -45,7 +45,7 @@ const Banner: React.FC<{ isLogin?: boolean }> = ({ isLogin }) => {
   }, []);
 
   return (
-    <div className="relative w-full overflow-hidden">
+    <div className="relative z-0 w-full overflow-hidden">
       <ButtonsCarousel
         state={currentIndex}
         leftPosition="1%"

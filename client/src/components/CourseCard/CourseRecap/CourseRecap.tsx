@@ -1,7 +1,7 @@
-const CourseRecap = ({ recapInfo }: { recapInfo: string }) => {
+const CourseRecap = ({ recapInfo }: { recapInfo?: string }) => {
   return (
-    <div className="flex w-auto">
-      <p>{recapInfo}</p>
+    <div className="w-full max-w-full">
+      <p className="line-clamp-2 break-words text-gray-600">{recapInfo}</p>
     </div>
   );
 };

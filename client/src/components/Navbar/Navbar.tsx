@@ -19,6 +19,7 @@ import MobileNavbar from "../MobileNavbar/MobileNavbar";
 
 const Navbar = () => {
   const isMobile = useMediaQuery({ maxWidth: 800 });
+  const isTablet = useMediaQuery({ minWidth: 801, maxWidth: 1200 });
   const navigate = useNavigate();
   const [isTyping, setIsTyping] = useState(false);
   const [isClicked, setClicked] = useState(false);
@@ -61,28 +62,34 @@ const Navbar = () => {
           className={`relative z-[50] flex w-full items-center justify-between bg-white pb-[0.9em] pl-[1.7rem] pr-[0.5rem] pt-[0.2em] 
           ${"shadow-md shadow-[#bcc0ce]"}`}
         >
-          <div className="flex w-full items-center justify-between pl-[0rem] pt-[0.4rem] ">
-            <Link to="/">
+          <div className="flex w-full items-center justify-between gap-2 pl-[0rem] pt-[0.4rem]">
+            <Link to="/" className="shrink-0">
               <Logo />
             </Link>
-            <CategoriesMenu />
-            <div className={"w-full flex-grow items-center p-1"}>
+            <div className="shrink-0">
+              <CategoriesMenu />
+            </div>
+            <div className="min-w-0 flex-1 px-1">
               <SearchInput isTyping={isTyping} setIsTyping={setIsTyping} />
             </div>
-            <div className="flex w-full items-end justify-end" style={{ maxWidth: "min-content" }}>
-              <ButtonNavbar
-                buttonName={"Udemy Business"}
-                insideBtnText="Try Udemy Business"
-                paragraphText="Get your team access to over 27,000 top Udemy courses, anytime, anywhere."
-                to="/demo-business"
-              />
-              <ButtonNavbar
-                buttonName={"Teach on Udemy"}
-                paragraphText="Turn what you know into an opportunity and reach millions around the world."
-                to="/teaching/?ref=teach_header"
-                insideBtnText="Learn more"
-              />
-              {cookie && (
+            <div className="flex shrink-0 items-center justify-end gap-1">
+              {!isTablet && (
+                <>
+                  <ButtonNavbar
+                    buttonName={"Udemy Business"}
+                    insideBtnText="Try Udemy Business"
+                    paragraphText="Get your team access to over 27,000 top Udemy courses, anytime, anywhere."
+                    to="/demo-business"
+                  />
+                  <ButtonNavbar
+                    buttonName={"Teach on Udemy"}
+                    paragraphText="Turn what you know into an opportunity and reach millions around the world."
+                    to="/teaching/?ref=teach_header"
+                    insideBtnText="Learn more"
+                  />
+                </>
+              )}
+              {cookie && !isTablet && (
                 <Link to="/wishlist">
                   <ButtonNavbar
                     to="/wishlist"

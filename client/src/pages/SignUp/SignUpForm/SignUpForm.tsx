@@ -1,4 +1,5 @@
 import registerUser from "@/api/users/registerUser";
+import { getErrorMessage } from "@/api/configuration";
 import { RegisterUserPayload } from "@/types/types";
 import { useMutation } from "@tanstack/react-query";
 import { useState, useContext } from "react";
@@ -11,6 +12,7 @@ import { emailContext } from "@/contexts/EmailContext";
 const SignUpForm = ({ isMobile }) => {
   const [isLoading, setLoading] = useState(false);
   const [isError, setShowIsError] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("Please enter a valid email address.");
   const navigate = useNavigate();
 
   const emailCtx = useContext(emailContext);
@@ -24,7 +26,9 @@ const SignUpForm = ({ isMobile }) => {
       if (data) navigate("/verify-code");
     },
     onError: (error) => {
-      console.log(`Error occurred durning sign up: `, error.response.data);
+      const message = getErrorMessage(error);
+      console.log(`Error occurred during sign up: `, message);
+      setErrorMessage(message);
       setShowIsError(true);
     },
   });
@@ -38,7 +42,10 @@ const SignUpForm = ({ isMobile }) => {
 
     if (signUpEmail.length > 1 && fullName.length < 1) {
       const isValidEmail = /^[^\s@]+@[^\s@]+\.(com|co\.il)$/.test(signUpEmail);
-      setShowIsError(!isValidEmail);
+      if (!isValidEmail) {
+        setErrorMessage("Please enter a valid email address.");
+        setShowIsError(true);
+      }
       return;
     }
 
@@ -72,6 +79,7 @@ const SignUpForm = ({ isMobile }) => {
         idAttribute={"email"}
         labelName={"Email"}
         inputMode={"email"}
+        errorMessage={errorMessage}
       />
       <div className="w-full">
         <ButtonLoader isLoading={isLoading} stopLoad={isError} />

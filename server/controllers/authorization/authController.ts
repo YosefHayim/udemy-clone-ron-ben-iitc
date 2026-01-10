@@ -16,7 +16,9 @@ const confirmEmailToken = (length = 32) => {
 
 const generateToken = async (payload: Payload) => {
   // Generating token once user logged in
-  const token = await new SignJWT(payload as unknown as Record<string, unknown>)
+  // Convert payload to plain JSON object to avoid Mongoose document serialization issues
+  const plainPayload = JSON.parse(JSON.stringify(payload));
+  const token = await new SignJWT(plainPayload as Record<string, unknown>)
     .setProtectedHeader({ alg: "HS256" })
     .setExpirationTime(process.env.JWT_EXPIRES_IN || "90d")
     .sign(jwtKey);

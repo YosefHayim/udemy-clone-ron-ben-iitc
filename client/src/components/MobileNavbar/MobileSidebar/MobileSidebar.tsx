@@ -36,7 +36,7 @@ const MobileSidebar = ({ showSidebar, setShowSidebar }) => {
         <List>
           {firstDividerList.map((word) => (
             <ListItem key={word.text} disablePadding>
-              <Link to={word.to} className="w-full">
+              <Link to={word.to} className="w-full" onClick={() => setShowSidebar(false)}>
                 <ListItemButton
                   sx={{
                     width: "100%",
@@ -85,7 +85,9 @@ const MobileSidebar = ({ showSidebar, setShowSidebar }) => {
           </List>
           {thirdDividerList.map((text) => (
             <ListItem key={text} disablePadding>
-              <ListItemButton sx={style}>{text}</ListItemButton>
+              <ListItemButton sx={style} onClick={() => setShowSidebar(false)}>
+                {text}
+              </ListItemButton>
             </ListItem>
           ))}
         </List>

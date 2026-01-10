@@ -10,6 +10,7 @@ const CustomInput: React.FC<{
   nameAttribute: string;
   inputMode: string;
   useErrorDisplay?: boolean;
+  errorMessage?: string;
 }> = ({
   isError,
   setShowIsError,
@@ -18,6 +19,7 @@ const CustomInput: React.FC<{
   nameAttribute,
   inputMode,
   useErrorDisplay = true,
+  errorMessage = "Please enter a valid email address.",
 }) => {
   const [email, setEmail] = useState("");
   const [isFocused, setIsFocused] = useState(false);
@@ -88,7 +90,7 @@ const CustomInput: React.FC<{
         )}
       </div>
       {isError && useErrorDisplay && (
-        <p className="text-red-600">Please enter a valid email address.</p>
+        <p className="text-red-600">{errorMessage}</p>
       )}
     </div>
   );

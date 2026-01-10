@@ -5,6 +5,7 @@ import { useState } from "react";
 import { IoHeartOutline, IoHeartSharp } from "react-icons/io5";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import toggleWishlist from "@/api/users/toggleWishlist";
 
 const HeartBtn: React.FC<{
   iconSize?: string;
@@ -24,18 +25,24 @@ const HeartBtn: React.FC<{
 
   if (!courseId) return null;
 
-  const handleClick = () => {
-    console.log("Clicked heart button");
+  const handleClick = async (e: React.MouseEvent) => {
+    e.stopPropagation();
+    e.preventDefault();
 
     if (!cookie) {
       navigate("/signup");
       return;
     }
+
     setLoading(true);
-    dispatch(setCoursesAddedToWishList(courseId));
-    setTimeout(() => {
+    try {
+      await toggleWishlist(courseId);
+      dispatch(setCoursesAddedToWishList(courseId));
+    } catch (error) {
+      console.error("Failed to toggle wishlist:", error);
+    } finally {
       setLoading(false);
-    }, 500);
+    }
   };
 
   return (

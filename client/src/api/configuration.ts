@@ -1,13 +1,14 @@
 import axios from "axios";
 
-export const baseUrl = import.meta.env.VITE_BASE_URL;
-export const localhostUrl = import.meta.env.VITE_LOCALHOST;
-export const isProduction = import.meta.env.VITE_NODE_ENV === "production";
-export const googleClient = import.meta.env.VITE_GOOGLE_CLIENT_ID;
+export const baseUrl = import.meta.env.VITE_BASE_URL || "";
+// localhostUrl is used by legacy API calls - new code should use axiosClient with relative paths
+export const localhostUrl = import.meta.env.VITE_LOCALHOST || "http://localhost:3000";
+// Use Vite's built-in production flag (automatically true in production builds)
+export const isProduction = import.meta.env.PROD;
 
 export const axiosClient = axios.create({
   // In development, use empty baseURL to leverage Vite proxy
-  // In production, use the full base URL
+  // In production, use the full base URL (e.g., https://udemy-clone-ron-ben.onrender.com)
   baseURL: isProduction ? baseUrl : "",
   withCredentials: true,
   headers: {

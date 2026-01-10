@@ -4,20 +4,20 @@ import CoursePrice from "@/components/CourseCard/CoursePrice/CoursePrice";
 import CourseRatings from "@/components/CourseCard/CourseRatings/CourseRatings";
 import CourseInstructor from "@/components/CourseCard/CourseInstructor/CourseInstructor";
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
-import CourseHoverCardInfo from "@/pages/Search/CourseHoverCardInfo/CourseHoverCardInfo";
+import { useRef } from "react";
 
-const HomeCourseCard = ({ courseCard, index, onHover, onPosition }) => {
-  
+const HomeCourseCard = ({ courseCard, index, onHover, onPosition, onStartHideTimer, onCancelHideTimer }) => {
   const navigate = useNavigate();
+  const cardRef = useRef<HTMLDivElement>(null);
 
   const handleMouseEnter = (e: React.MouseEvent<HTMLDivElement>) => {
+    onCancelHideTimer?.();
     const rect = e.currentTarget.getBoundingClientRect();
     const hoverWidth = 330;
 
     let left = rect.right;
     if (left + hoverWidth > window.innerWidth) {
-      left = rect.left - hoverWidth -10;
+      left = rect.left - hoverWidth - 10;
     }
 
     onPosition({
@@ -25,11 +25,11 @@ const HomeCourseCard = ({ courseCard, index, onHover, onPosition }) => {
       left,
     });
 
-    onHover(courseCard); 
+    onHover(courseCard);
   };
 
   const handleMouseLeave = () => {
-    onHover(null);
+    onStartHideTimer?.();
   };
 
   const handleCardClick = (courseId: string) => {

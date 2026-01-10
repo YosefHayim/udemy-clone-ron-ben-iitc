@@ -71,7 +71,7 @@ const LayoutWithNavbarAndFooter = () => {
         <Route path="/verify-code" element={<VerifyCode />} />
         <Route path="/courses/search" element={<SearchPage />} />
         <Route path="/not/search/not/found/:searchTerm" element={<SearchNotFound />} />
-        {/* <Route path="/course-view/:courseId" element={<ViewCoursePageInfo />} /> */}
+        <Route path="/course-view/:courseId" element={<ViewCoursePageInfo />} />
         <Route path="/terms-of-use" element={<Terms />} />
         <Route path="/personal-plan/local=en_US" element={<PersonalPlan />} />
         <Route path="*" element={<NotFound />} />

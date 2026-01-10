@@ -90,6 +90,7 @@ const CourseHoverCardInfo: React.FC<{
               displayWhatYouLearn={displayWhatYouLearn}
             />
             <InteractionsBtns
+              BtnText="Add to cart"
               isDisplayHeart={true}
               instructorId={instructorId}
               courseTopic={courseTopic}

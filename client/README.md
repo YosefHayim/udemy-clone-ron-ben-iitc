@@ -52,17 +52,16 @@ src/
 
 ## Environment Variables
 
-Create a `.env` file in the client root:
+Create a `.env` file in the client root (copy from `.env.example`):
 
 ```env
-VITE_CLIENT_ID=your_client_id
-VITE_PAYPAL_CLIENT_ID=your_paypal_client_id
-VITE_SECRET_KEY_PAYPAL=your_paypal_secret
-VITE_NODE_ENV=development
-VITE_BASE_URL=http://localhost:3000
-VITE_LOCALHOST=http://localhost:3000
-VITE_GOOGLE_CLIENT_ID=your_google_client_id
+VITE_PAYPAL_CLIENT=your_paypal_client_id
 VITE_AI_TOKEN=your_ai_token
+VITE_BASE_URL=https://your-backend-url.com
+VITE_LOCALHOST=http://localhost:3000
+VITE_NODE_ENV=development
 ```
+
+> **Note:** Google Client ID is fetched from the backend `/api/config` endpoint.
 
 See the [main README](../README.md) for full project documentation.

@@ -9,7 +9,7 @@ import CourseTitle from "../../../../components/CourseCard/CourseTitle/CourseTit
 const HotCourseCard = ({ hotCourseAlgo }) => {
   useEffect(() => {}, [hotCourseAlgo]);
   return (
-    <div className="flex w-[200px] cursor-pointer  items-center justify-center gap-[2em]">
+    <div className="flex w-[160px] shrink-0 cursor-pointer items-center justify-center gap-[2em] sm:w-[200px]">
       <div>
         <CourseImg courseImg={hotCourseAlgo.courseImg} standCardView={false} imgExplanation={""} />
         <div className="flex flex-col items-start justify-start gap-[0.3em]">

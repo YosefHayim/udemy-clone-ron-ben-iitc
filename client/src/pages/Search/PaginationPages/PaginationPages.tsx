@@ -33,7 +33,7 @@ const PaginationPages: React.FC<{ totalPages: number; useScrollRef }> = ({
   };
 
   return (
-    <div className="mt-[2em] flex items-center justify-center gap-[1em]">
+    <div className="mt-[2em] flex flex-wrap items-center justify-center gap-2 sm:gap-[1em]">
       <button
         onClick={handlePreviousPage}
         disabled={currentPage === 1}

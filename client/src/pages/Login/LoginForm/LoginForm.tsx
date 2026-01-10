@@ -1,4 +1,5 @@
 import loginUser from "@/api/users/loginUser";
+import { getErrorMessage } from "@/api/configuration";
 import { useMutation } from "@tanstack/react-query";
 import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -16,6 +17,7 @@ const LoginForm = ({ showOnlyLoginButton = true }) => {
 
   const [isLoading, setLoading] = useState(false);
   const [isError, setShowIsError] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("Please enter a valid email address.");
   const navigate = useNavigate();
 
   const loginMutation = useMutation({
@@ -24,7 +26,9 @@ const LoginForm = ({ showOnlyLoginButton = true }) => {
       navigate("/verify-code");
     },
     onError: (error) => {
-      console.log("Error during login process:", error.response.data);
+      const message = getErrorMessage(error);
+      console.log("Error during login process:", message);
+      setErrorMessage(message);
       setShowIsError(true);
     },
   });
@@ -37,7 +41,8 @@ const LoginForm = ({ showOnlyLoginButton = true }) => {
     if (emailSendToLoginApi.length > 1) {
       const isValidEmail = /^[^\s@]+@[^\s@]+\.(com|co\.il)$/.test(emailSendToLoginApi);
       if (!isValidEmail) {
-        setShowIsError(!isValidEmail);
+        setErrorMessage("Please enter a valid email address.");
+        setShowIsError(true);
         return;
       }
     }
@@ -61,6 +66,7 @@ const LoginForm = ({ showOnlyLoginButton = true }) => {
             idAttribute={`email`}
             nameAttribute={`email`}
             inputMode={`email`}
+            errorMessage={errorMessage}
           />
         )}
       </div>

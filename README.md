@@ -113,15 +113,14 @@ npm install
 #### Frontend (`client/.env`)
 
 ```env
-VITE_CLIENT_ID=your_client_id
-VITE_PAYPAL_CLIENT_ID=your_paypal_client_id
-VITE_SECRET_KEY_PAYPAL=your_paypal_secret
-VITE_NODE_ENV=development
+VITE_PAYPAL_CLIENT=your_paypal_client_id
+VITE_AI_TOKEN=your_ai_token
 VITE_BASE_URL=https://your-backend-url.com
 VITE_LOCALHOST=http://localhost:3000
-VITE_GOOGLE_CLIENT_ID=your_google_client_id
-VITE_AI_TOKEN=your_ai_token
+VITE_NODE_ENV=development
 ```
+
+> **Note:** Google Client ID is fetched from the backend `/api/config` endpoint.
 
 #### Backend (`server/.env`)
 

@@ -39,7 +39,7 @@ const ButtonsCarousel: React.FC<{
   const showRight = !useCustom || (showDirectionalButtonsOnlyOnEdge ? state === 0 : state >= 0);
 
   return (
-    <div>
+    <div className="hidden lg:block">
       {showLeft && (
         <div
           className="absolute z-[999] h-min rounded-full bg-white shadow-alertAlgoInfo"
@@ -47,6 +47,7 @@ const ButtonsCarousel: React.FC<{
             left: leftPosition,
             top: topPosition,
             bottom: bottomPosition,
+            transform: topPosition === "50%" ? "translateY(-50%)" : undefined,
           }}
         >
           <button
@@ -60,11 +61,12 @@ const ButtonsCarousel: React.FC<{
 
       {showRight && (
         <div
-          className="absolute z-10 h-min rounded-full bg-white shadow-alertAlgoInfo"
+          className="absolute z-[999] h-min rounded-full bg-white shadow-alertAlgoInfo"
           style={{
             right: rightPosition,
             top: topPosition,
             bottom: bottomPosition,
+            transform: topPosition === "50%" ? "translateY(-50%)" : undefined,
           }}
         >
           <button

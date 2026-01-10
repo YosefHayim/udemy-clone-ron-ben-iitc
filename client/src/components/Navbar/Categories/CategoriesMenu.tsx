@@ -84,7 +84,11 @@ const CategoriesMenu = () => {
   };
 
   return (
-    <div className="relative z-50 inline-block w-auto px-[0.25rem] text-left font-medium text-gray-600">
+    <div
+      className={`relative inline-block w-auto px-[0.25rem] text-left font-medium text-gray-600 ${
+        isExploring ? "z-[9999]" : "z-50"
+      }`}
+    >
       {/* Botão Explore com hover para mostrar menu */}
       <div
         className="inline-block"
@@ -99,7 +103,7 @@ const CategoriesMenu = () => {
         {/* Menu one */}
         {hoveredMenu && (
           <div
-            className="absolute left-0 top-[130%] min-h-[40rem] w-64 rounded-l-lg border border-gray-300 bg-white text-sm"
+            className="absolute left-0 top-[130%] z-[9999] min-h-[40rem] w-64 rounded-l-lg border border-gray-300 bg-white text-sm shadow-lg"
             onMouseEnter={() => handleMenuEnter("main")}
             onMouseLeave={handleMenuLeave}
           >
@@ -131,7 +135,7 @@ const CategoriesMenu = () => {
             {/* First Submenu */}
             {hoveredMenu && hoveredMenu !== "main" && (
               <div
-                className="absolute left-[15.9rem] top-[-0.05rem] z-20 mt-0 min-h-[40rem] w-64 border border-y-gray-300 bg-white"
+                className="absolute left-[15.9rem] top-[-0.05rem] z-[10000] mt-0 min-h-[40rem] w-64 border border-y-gray-300 bg-white shadow-lg"
                 onMouseEnter={() => handleSubMenuEnter(hoveredMenu)}
                 onMouseLeave={handleSubMenuLeave}
               >
@@ -179,7 +183,7 @@ const CategoriesMenu = () => {
             {/* Second Submenu */}
             {hoveredSubMenu && hoveredMenu && (
               <div
-                className="absolute left-[15.8rem]  top-[0.05rem] z-30 ml-64 mt-[-0.1rem] min-h-[40rem] w-64 rounded-r-lg border border-gray-300 bg-white"
+                className="absolute left-[15.8rem] top-[0.05rem] z-[10001] ml-64 mt-[-0.1rem] min-h-[40rem] w-64 rounded-r-lg border border-gray-300 bg-white shadow-lg"
                 onMouseEnter={handleSecondSubMenuEnter}
                 onMouseLeave={handleSecondSubMenuLeave}
               >

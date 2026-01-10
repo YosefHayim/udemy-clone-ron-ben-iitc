@@ -1,22 +1,22 @@
-import Menu from "@/components/Menu/Menu";
 import Banner from "./Banner/Banner";
-import TrustedBySection from "./TrustedBySection/TrustedBySection";
-import LearnersAreViewing from "./LearnersAreViewing/LearnersAreViewing";
-import SearchResult from "./SearchResult/SearchResult";
-import LearningGoals from "./LearningGoals/LearningGoals";
-import PlansSection from "./PansSection/PansSection";
-import Testimonials from "./Testimonials/Testimonials";
-import TrendsReport from "./TopTrends/TopTrends";
-import TrendingNow from "./TrendingNow/TrendingNow";
 import Carousel from "./Carousel/Carousel";
-import Sections from "./Sections/Sections";
-import Welcome from "@/components/LoggedInHome/Welcome";
-import { useEffect } from "react";
-import { useSelector } from "react-redux";
-import { RootState } from "@/redux/store";
-import { useMediaQuery } from "react-responsive";
-import { searchAlgoLocalStorage } from "@/utils/searchesOfUser";
+import LearnersAreViewing from "./LearnersAreViewing/LearnersAreViewing";
+import LearningGoals from "./LearningGoals/LearningGoals";
 import LetsStartLearning from "./LetsStartLearning/LetsStartLearning";
+import Menu from "@/components/Menu/Menu";
+import PlansSection from "./PansSection/PansSection";
+import { RootState } from "@/redux/store";
+import SearchResult from "./SearchResult/SearchResult";
+import Sections from "./Sections/Sections";
+import Testimonials from "./Testimonials/Testimonials";
+import TrendingNow from "./TrendingNow/TrendingNow";
+import TrendsReport from "./TopTrends/TopTrends";
+import TrustedBySection from "./TrustedBySection/TrustedBySection";
+import Welcome from "@/components/LoggedInHome/Welcome";
+import { searchAlgoLocalStorage } from "@/utils/searchesOfUser";
+import { useEffect } from "react";
+import { useMediaQuery } from "react-responsive";
+import { useSelector } from "react-redux";
 
 const Homepage = () => {
   const isMobile = useMediaQuery({ maxWidth: 800 });
@@ -61,7 +61,7 @@ const Homepage = () => {
           </div>
         ) : (
           <div className="w-full">
-            <div className="flex flex-col  gap-4 px-24 py-8">
+            <div className="">
               <Welcome />
               <Banner isLogin={true} />
               <div className="mx-2">

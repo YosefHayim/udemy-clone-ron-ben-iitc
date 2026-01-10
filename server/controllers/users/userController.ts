@@ -130,21 +130,21 @@ const signUp = catchAsync(
     });
 
     const token = await generateToken({
-      id: newUser._id,
+      id: newUser._id.toString(),
       fullName: newUser.fullName,
       email: newUser.email,
       profilePic: newUser.profilePic,
       bio: newUser.bio,
       role: newUser.role,
-      coursesBought: newUser.coursesBought,
+      coursesBought: newUser.coursesBought?.map((id: any) => id.toString()) || [],
       udemyCredits: newUser.udemyCredits,
       userLinks: newUser.links,
       language: newUser.preferredLanguage,
       headline: newUser.headline,
       fieldLearning: newUser.fieldLearning,
       isLoggedPreviouslyWithGoogle: newUser.isLoggedPreviouslyWithGoogle,
-      whenCreated: newUser.createdAt,
-      whenUpdated: newUser.updatedAt,
+      whenCreated: newUser.createdAt?.toISOString?.() || newUser.createdAt,
+      whenUpdated: newUser.updatedAt?.toISOString?.() || newUser.updatedAt,
       isAuthActivated: newUser.isAuthActivate,
     });
 
@@ -208,21 +208,21 @@ const login = catchAsync(
     }
 
     const token = await generateToken({
-      id: isFoundUser._id,
+      id: isFoundUser._id.toString(),
       fullName: isFoundUser.fullName,
       email: isFoundUser.email,
       profilePic: isFoundUser.profilePic,
       bio: isFoundUser.bio,
       role: isFoundUser.role,
-      coursesBought: isFoundUser.coursesBought,
+      coursesBought: isFoundUser.coursesBought?.map((id: any) => id.toString()) || [],
       udemyCredits: isFoundUser.udemyCredits,
       userLinks: isFoundUser.links,
       language: isFoundUser.preferredLanguage,
       headline: isFoundUser.headline,
       fieldLearning: isFoundUser.fieldLearning,
       isLoggedPreviouslyWithGoogle: isFoundUser.isLoggedPreviouslyWithGoogle,
-      whenCreated: isFoundUser.createdAt,
-      whenUpdated: isFoundUser.updatedAt,
+      whenCreated: isFoundUser.createdAt?.toISOString?.() || isFoundUser.createdAt,
+      whenUpdated: isFoundUser.updatedAt?.toISOString?.() || isFoundUser.updatedAt,
       isAuthActivated: isFoundUser.isAuthActivate,
     });
 
@@ -292,21 +292,21 @@ const verifyCode = catchAsync(
     await user.save();
 
     const token = await generateToken({
-      id: user._id,
+      id: user._id.toString(),
       fullName: user.fullName,
       email: user.email,
       profilePic: user.profilePic,
       bio: user.bio,
       role: user.role,
-      coursesBought: user.coursesBought,
+      coursesBought: user.coursesBought?.map((id: any) => id.toString()) || [],
       udemyCredits: user.udemyCredits,
       userLinks: user.links,
       language: user.preferredLanguage,
       headline: user.headline,
       fieldLearning: user.fieldLearning,
       isLoggedPreviouslyWithGoogle: user.isLoggedPreviouslyWithGoogle,
-      whenCreated: user.createdAt,
-      whenUpdated: user.updatedAt,
+      whenCreated: user.createdAt?.toISOString?.() || user.createdAt,
+      whenUpdated: user.updatedAt?.toISOString?.() || user.updatedAt,
       isAuthActivated: user.isAuthActivate,
     });
 
@@ -509,21 +509,21 @@ const updateUserInfo = catchAsync(
     }
 
     const token = await generateToken({
-      id: updatedUser._id,
+      id: updatedUser._id.toString(),
       fullName: updatedUser.fullName,
       email: updatedUser.email,
       profilePic: updatedUser.profilePic,
       bio: updatedUser.bio,
       role: updatedUser.role,
-      coursesBought: updatedUser.coursesBought,
+      coursesBought: updatedUser.coursesBought?.map((id: any) => id.toString()) || [],
       udemyCredits: updatedUser.udemyCredits,
       userLinks: updatedUser.links,
       language: updatedUser.preferredLanguage,
       headline: updatedUser.headline,
       fieldLearning: updatedUser.fieldLearning,
       isLoggedPreviouslyWithGoogle: updatedUser.isLoggedPreviouslyWithGoogle,
-      whenCreated: updatedUser.createdAt,
-      whenUpdated: updatedUser.updatedAt,
+      whenCreated: updatedUser.createdAt?.toISOString?.() || updatedUser.createdAt,
+      whenUpdated: updatedUser.updatedAt?.toISOString?.() || updatedUser.updatedAt,
       isAuthActivated: updatedUser.isAuthActivate,
     });
 
@@ -576,21 +576,21 @@ const updateProfilePic = catchAsync(
     }
 
     const token = await generateToken({
-      id: updatedUser._id,
+      id: updatedUser._id.toString(),
       fullName: updatedUser.fullName,
       email: updatedUser.email,
       profilePic: updatedUser.profilePic,
       bio: updatedUser.bio,
       role: updatedUser.role,
-      coursesBought: updatedUser.coursesBought,
+      coursesBought: updatedUser.coursesBought?.map((id: any) => id.toString()) || [],
       udemyCredits: updatedUser.udemyCredits,
       userLinks: updatedUser.links,
       language: updatedUser.preferredLanguage,
       headline: updatedUser.headline,
       fieldLearning: updatedUser.fieldLearning,
       isLoggedPreviouslyWithGoogle: updatedUser.isLoggedPreviouslyWithGoogle,
-      whenCreated: updatedUser.createdAt,
-      whenUpdated: updatedUser.updatedAt,
+      whenCreated: updatedUser.createdAt?.toISOString?.() || updatedUser.createdAt,
+      whenUpdated: updatedUser.updatedAt?.toISOString?.() || updatedUser.updatedAt,
       isAuthActivated: updatedUser.isAuthActivate,
     });
 
@@ -701,22 +701,23 @@ const googleLoginOrSignUp = catchAsync(
       }
 
       // Generate a JWT token for authentication
+      // Convert MongoDB objects to plain JS values for jose serialization
       const token = await generateToken({
-        id: user._id,
+        id: user._id.toString(),
         fullName: user.fullName,
         email: user.email,
         profilePic: user.profilePic,
         bio: user.bio,
         role: user.role,
-        coursesBought: user.coursesBought,
+        coursesBought: user.coursesBought?.map((id: any) => id.toString()) || [],
         udemyCredits: user.udemyCredits,
         userLinks: user.links,
         language: user.preferredLanguage,
         headline: user.headline,
         fieldLearning: user.fieldLearning,
         isLoggedPreviouslyWithGoogle: user.isLoggedPreviouslyWithGoogle,
-        whenCreated: user.createdAt,
-        whenUpdated: user.updatedAt,
+        whenCreated: user.createdAt?.toISOString?.() || user.createdAt,
+        whenUpdated: user.updatedAt?.toISOString?.() || user.updatedAt,
         isAuthActivated: user.isAuthActivate,
       });
 
@@ -733,11 +734,13 @@ const googleLoginOrSignUp = catchAsync(
         token,
       });
     } catch (error) {
-      console.log(
-        "Google login error:",
-        (error as any).response?.data || (error as any).message
-      );
-      return next(createError("Authentication failed", 500));
+      const errorData = (error as any).response?.data;
+      const errorMessage = (error as any).message;
+      console.log("Google login error:", errorData || errorMessage);
+
+      // Return more specific error message for debugging
+      const message = errorData?.error_description || errorData?.error || errorMessage || "Authentication failed";
+      return next(createError(`Google auth error: ${message}`, 500));
     }
   }
 );
@@ -747,21 +750,21 @@ const updateMe = catchAsync(
     const user = req.user;
 
     const token = await generateToken({
-      id: user._id,
+      id: user._id.toString(),
       fullName: user.fullName,
       email: user.email,
       profilePic: user.profilePic,
       bio: user.bio,
       role: user.role,
-      coursesBought: user.coursesBought,
+      coursesBought: user.coursesBought?.map((id: any) => id.toString()) || [],
       udemyCredits: user.udemyCredits,
       userLinks: user.links,
       language: user.preferredLanguage,
       headline: user.headline,
       fieldLearning: user.fieldLearning,
       isLoggedPreviouslyWithGoogle: user.isLoggedPreviouslyWithGoogle,
-      whenCreated: user.createdAt,
-      whenUpdated: user.updatedAt,
+      whenCreated: user.createdAt?.toISOString?.() || user.createdAt,
+      whenUpdated: user.updatedAt?.toISOString?.() || user.updatedAt,
       isAuthActivated: user.isAuthActivated,
     });
 
