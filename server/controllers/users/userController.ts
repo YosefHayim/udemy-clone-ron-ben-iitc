@@ -129,7 +129,7 @@ const signUp = catchAsync(
       html: signUpCodeTemplate(newUser.fullName, signUpCode),
     });
 
-    const token = generateToken({
+    const token = await generateToken({
       id: newUser._id,
       fullName: newUser.fullName,
       email: newUser.email,
@@ -207,7 +207,7 @@ const login = catchAsync(
       return;
     }
 
-    const token = generateToken({
+    const token = await generateToken({
       id: isFoundUser._id,
       fullName: isFoundUser.fullName,
       email: isFoundUser.email,
@@ -291,7 +291,7 @@ const verifyCode = catchAsync(
     user.temporaryCodeExpiresAt = undefined;
     await user.save();
 
-    const token = generateToken({
+    const token = await generateToken({
       id: user._id,
       fullName: user.fullName,
       email: user.email,
@@ -508,7 +508,7 @@ const updateUserInfo = catchAsync(
       return next(createError("User not found.", 404));
     }
 
-    const token = generateToken({
+    const token = await generateToken({
       id: updatedUser._id,
       fullName: updatedUser.fullName,
       email: updatedUser.email,
@@ -575,7 +575,7 @@ const updateProfilePic = catchAsync(
       return next(createError("User not found.", 404));
     }
 
-    const token = generateToken({
+    const token = await generateToken({
       id: updatedUser._id,
       fullName: updatedUser.fullName,
       email: updatedUser.email,
@@ -701,7 +701,7 @@ const googleLoginOrSignUp = catchAsync(
       }
 
       // Generate a JWT token for authentication
-      const token = generateToken({
+      const token = await generateToken({
         id: user._id,
         fullName: user.fullName,
         email: user.email,
@@ -746,7 +746,7 @@ const updateMe = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
     const user = req.user;
 
-    const token = generateToken({
+    const token = await generateToken({
       id: user._id,
       fullName: user.fullName,
       email: user.email,

@@ -1,4 +1,4 @@
-import jwt, { SignOptions } from "jsonwebtoken";
+import { SignJWT, jwtVerify } from "jose";
 import catchAsync from "../../utils/wrapperFn.ts";
 import crypto from "crypto";
 import createError from "../../utils/errorFn.ts";
@@ -6,7 +6,7 @@ import { NextFunction, Request, Response } from "express";
 import User from "../../models/users/userModel.ts";
 import { Payload } from "../../types/types.ts";
 
-const jwtKey = process.env.JWT_SECRET as string;
+const jwtKey = new TextEncoder().encode(process.env.JWT_SECRET as string);
 
 // Generate a random token for email confirmation
 const confirmEmailToken = (length = 32) => {
@@ -14,20 +14,23 @@ const confirmEmailToken = (length = 32) => {
   return emailToken;
 };
 
-const generateToken = (payload: Payload) => {
+const generateToken = async (payload: Payload) => {
   // Generating token once user logged in
-  const token = jwt.sign(payload, jwtKey as jwt.Secret, {
-    expiresIn: process.env.JWT_EXPIRES_IN as SignOptions["expiresIn"],
-  });
+  const token = await new SignJWT(payload as unknown as Record<string, unknown>)
+    .setProtectedHeader({ alg: "HS256" })
+    .setExpirationTime(process.env.JWT_EXPIRES_IN || "90d")
+    .sign(jwtKey);
   return token;
 };
 
-const verifyToken = (token: string) => {
+const verifyToken = async (token: string) => {
   // Verify the token that was provided
-  return jwt.verify(token, jwtKey as string, function (err, decoded) {
-    if (err) throw Error("Error occurred durning verify token of user: ", err);
-    return decoded;
-  });
+  try {
+    const { payload } = await jwtVerify(token, jwtKey);
+    return payload;
+  } catch (err) {
+    throw Error("Error occurred during verify token of user");
+  }
 };
 
 const grantedAccess = catchAsync(
@@ -50,7 +53,7 @@ const grantedAccess = catchAsync(
     }
 
     // Verify token
-    const decoded = verifyToken(token);
+    const decoded = await verifyToken(token);
 
     // Check if the user still exists
     const currentUser = await User.findOne({ _id: decoded.id });
