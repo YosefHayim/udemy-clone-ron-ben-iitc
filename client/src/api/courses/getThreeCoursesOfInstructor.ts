@@ -11,9 +11,6 @@ const getThreeCoursesOfInstructor = async (instructorId: string) => {
       return r?.data?.data;
     }
   } catch (error) {
-      "Error for getting frequently bought together courses of instructor: ",
-      error.response.data.message
-    );
     throw error;
   }
 };

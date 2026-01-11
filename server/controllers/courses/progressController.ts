@@ -28,17 +28,6 @@ const initializeProgress = async (req: Request, res: Response) => {
     const courseObjectId = new mongoose.Types.ObjectId(courseId); // Ensure ObjectId type
     const userObjectId = userId; // userId is already an ObjectId
 
-      "Converted courseId:",
-      courseObjectId,
-      "Type:",
-      typeof courseObjectId
-    );
-      "Converted userId:",
-      userObjectId,
-      "Type:",
-      typeof userObjectId
-    );
-
     // Check if the course and user exist
     const userExists = await User.findById(userObjectId);
     const courseExists = await Course.findById(courseObjectId).populate({
@@ -96,12 +85,6 @@ const updateLessonProgress = async (req: Request, res: Response) => {
   const { courseId, lessonId } = req.params;
   const userId = req.user._id;
   const { completed, lastWatched } = req.body;
-    userId,
-    courseId,
-    lessonId,
-    completed,
-    lastWatched,
-  });
 
   try {
     const progress = await CourseProgress.findOne({
@@ -149,13 +132,8 @@ const getCourseProgress = async (req: Request, res: Response) => {
   const { courseId } = req.params;
   const userId = req.user._id;
 
-    `Getting course progress for userId: ${userId}, courseId: ${courseId}`
-  );
-
   try {
     // Find progress for the user and course
-      "Querying CourseProgress with .lean() and populating related data"
-    );
     const progress = await CourseProgress.findOne({ userId, courseId })
       .lean()
       .populate({
@@ -168,14 +146,9 @@ const getCourseProgress = async (req: Request, res: Response) => {
           "title videoUrl duration order resources createdAt updatedAt completed", // Select required fields
       });
 
-      "Query completed - result:",
-      progress ? "Data found" : "No data found"
-    );
-
     if (!progress) {
       return res.status(404).json({ message: "Progress not found" });
     }
-
 
     // Initialize total lessons and completed lessons counters
     let totalLessons = 0;
@@ -184,21 +157,15 @@ const getCourseProgress = async (req: Request, res: Response) => {
     // Add stats for each section
     const sectionsWithStats = progress.sections.map(
       (section: any, index: number) => {
-          `Processing section ${index + 1}/${progress.sections.length}`
-        );
         let sectionTotalLessons = 0;
         let sectionCompletedLessons = 0;
 
         // Calculate lessons for each section
-          `Section ${index + 1} has ${section.lessons?.length || 0} lessons`
-        );
         section.lessons.forEach(
           (lesson: LessonProgressDocument, lessonIndex: number) => {
             sectionTotalLessons++; // Count all lessons in the section
             if (lesson.completed) {
               sectionCompletedLessons++; // Count completed lessons in the section
-                `Lesson ${lessonIndex + 1} in section ${index + 1} is completed`
-              );
             }
           }
         );
@@ -206,11 +173,6 @@ const getCourseProgress = async (req: Request, res: Response) => {
         // Accumulate to the total lessons and completed lessons
         totalLessons += sectionTotalLessons;
         completedLessons += sectionCompletedLessons;
-
-          `Section ${
-            index + 1
-          }: ${sectionCompletedLessons}/${sectionTotalLessons} lessons completed`
-        );
 
         // Add the stats to the section
         return {
@@ -224,11 +186,6 @@ const getCourseProgress = async (req: Request, res: Response) => {
     // Calculate percentage of completion for the whole course
     const percentageCompleted =
       totalLessons > 0 ? completedLessons / totalLessons : 0;
-
-      `Overall progress: ${completedLessons}/${totalLessons} lessons completed (${(
-        percentageCompleted * 100
-      ).toFixed(2)}%)`
-    );
 
     // Add the calculated stats to the response
     const response = {

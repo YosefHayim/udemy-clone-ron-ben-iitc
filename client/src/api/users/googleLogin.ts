@@ -11,9 +11,6 @@ const googleLogin = async (googleCode: string) => {
       return r?.data;
     }
   } catch (error) {
-      `Error has occurred durning request to backend via googleLogin: `,
-      error.response.data.message
-    );
     throw error;
   }
 };

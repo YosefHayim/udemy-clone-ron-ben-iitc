@@ -309,15 +309,11 @@ const createCourses = async ({
         try {
           await student.save();
         } catch (err) {
-            `⚠️ Failed to update student ${student._id}: ${err.message}`
-          );
         }
       }
 
       allCourses.push(course);
 
-        `📘 Created: "${course.courseName}" — Topic: "${topic}" | Sub: "${subCategory}" | Cat: "${parentCategory}" | 👨‍🏫 ${instructor.fullName}`
-      );
     }
   }
 
@@ -337,11 +333,6 @@ const createSections = async () => {
     const createdSections = [];
 
     for (let i = 0; i < numSections; i++) {
-        `Creating section ${i + 1}/${numSections} for course "${
-          course.courseName
-        }"...`
-      );
-
       try {
         const section = await Section.create({
           course: course._id,
@@ -355,9 +346,6 @@ const createSections = async () => {
         createdSections.push(section._id);
         sections.push(section);
       } catch (err) {
-          `Error creating section ${i + 1} for ${course.courseName}:`,
-          err
-        );
       }
     }
 
@@ -365,8 +353,6 @@ const createSections = async () => {
     if (createdSections.length > 0) {
       course.sections.push(...createdSections);
       await course.save();
-        `Updated course "${course.courseName}" with ${createdSections.length} sections.`
-      );
     }
   }
 
@@ -411,10 +397,6 @@ const createLessons = async () => {
         lessons.push(lesson);
         totalDurationForSection += duration;
 
-          `Lesson created: ${lesson.title}, Order: ${
-            section.lessons.length + createdLessons.length
-          }, Duration: ${duration} mins`
-        );
       } catch (err) {
       }
     }
@@ -438,12 +420,7 @@ const createLessons = async () => {
         );
       }
     } catch (err) {
-        `Error updating course for section "${section.title}": ${err}`
-      );
     }
-
-      `Updated section "${section.title}" with ${createdLessons.length} lessons.`
-    );
   }
 
   return lessons;
@@ -468,8 +445,6 @@ const createReviews = async () => {
 
     for (const student of students) {
       if (!student.coursesBought || student.coursesBought.length === 0) {
-          `No valid courses found for student ${student.email}. Skipping...`
-        );
         continue;
       }
 
@@ -477,8 +452,6 @@ const createReviews = async () => {
         const course = courseEntry.courseId; // Fix: Access the populated course object
 
         if (!course || !course._id) {
-            `Invalid course reference for student "${student.email}". Skipping...`
-          );
           continue;
         }
 
@@ -508,15 +481,9 @@ const createReviews = async () => {
           );
 
           if (!updatedCourse) {
-              `Course with ID ${course._id} not found while updating.`
-            );
           } else {
-              `Review added to course "${updatedCourse.courseName}" successfully.`
-            );
           }
         } catch (err) {
-            `Error creating or updating review for course "${course.courseName}": ${err.message}`
-          );
         }
       }
     }
@@ -533,8 +500,6 @@ const calculateAverageRating = async (courseId: string) => {
     if (!allRatings.length) return 0;
     return allRatings.reduce((sum, r) => sum + r.rating, 0) / allRatings.length;
   } catch (err) {
-      `Error calculating average rating for course ${courseId}: ${err}`
-    );
     return 0;
   }
 };
@@ -585,8 +550,6 @@ const createReportedReviews = async () => {
     );
 
     if (!randomStudent) {
-        `No student found who bought the course "${randomReview.courseReview.courseName}".`
-      );
       continue;
     }
 
@@ -605,13 +568,6 @@ const createReportedReviews = async () => {
       randomReview.reports.count += 1;
       await randomReview.save();
 
-        `Report ${i + 1} created for Review:`,
-        randomReview.comment,
-        `Reported by:`,
-        randomStudent.email,
-        `Issue Type:`,
-        randomIssueType
-      );
     } catch (err) {
     }
   }
@@ -661,8 +617,6 @@ const simulateCoursePurchases = async () => {
 
             await course.save();
           } else {
-              `${user.fullName} does not have enough credits for "${course.courseName}".`
-            );
           }
         }
       }
@@ -818,8 +772,6 @@ const generateCouponsForCourses = async () => {
 
     // Insert all coupons
     const createdCoupons = await Coupon.insertMany(coupons);
-      `Successfully created ${createdCoupons.length} coupons for ${courses.length} courses.`
-    );
   } catch (error) {
     console.error("Error generating coupons:", error);
   }

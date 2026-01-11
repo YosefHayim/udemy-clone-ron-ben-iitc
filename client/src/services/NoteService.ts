@@ -87,9 +87,6 @@ const deleteNote: DeleteNoteFn = async (courseId, lessonId, noteId) => {
       console.warn("No data returned from deleting the note.");
     }
   } catch (error: any) {
-      `Error deleting note for course ${courseId}, lesson ${lessonId}, and note ${noteId}:`,
-      error
-    );
     throw new Error(
       error.response?.data?.message ||
         `Failed to delete note for course ID ${courseId}, lesson ID ${lessonId}, and note ID ${noteId}`

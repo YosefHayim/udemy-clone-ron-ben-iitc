@@ -66,9 +66,6 @@ const updateLessonProgress: UpdateLessonProgressFn = async (courseId, lessonId, 
       throw new Error("Failed to update lesson progress.");
     }
   } catch (error: any) {
-      `Error updating lesson progress for course ${courseId} and lesson ${lessonId}:`,
-      error
-    );
     throw new Error(
       error.response?.data?.message ||
         `Failed to update progress for course ID ${courseId} and lesson ID ${lessonId}`
